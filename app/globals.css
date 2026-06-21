@@ -1,0 +1,32 @@
+/* Solvia Landing EN — base + hero responsive styles (ported from the design) */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+::selection { background: rgba(192,138,46,0.25); }
+
+@keyframes drift { 0% { transform: translate(0,0); opacity:0; } 20% { opacity:0.9; } 100% { transform: translate(14px,-90px); opacity:0; } }
+@keyframes cue { 0%,100% { transform: translateY(0); opacity:0.35; } 50% { transform: translateY(8px); opacity:1; } }
+@keyframes glow { 0%,100% { opacity:0.55; } 50% { opacity:0.85; } }
+
+@media (min-width:761px) {
+  .hero-sec[data-vpos="top"] { align-items:flex-start; }
+  .hero-sec[data-vpos="top"] .hero-content { padding-top:128px; }
+  .hero-sec[data-vpos="center"] { align-items:center; }
+  .hero-sec[data-vpos="bottom"] { align-items:flex-end; }
+  .hero-sec[data-vpos="bottom"] .hero-content { padding-bottom:clamp(56px,9vh,110px); }
+  .hero-content[data-halign="center"] { text-align:center; margin-left:auto; margin-right:auto; }
+  .hero-content[data-halign="center"] .hero-row { justify-content:center; }
+  .hero-content[data-halign="center"] p { margin-left:auto; margin-right:auto; }
+}
+.hero-sec[data-orbs="off"] .hero-orb { display:none; }
+.hero-sec[data-cue="off"] .hero-cue { display:none; }
+
+@media (max-width:760px) {
+  /* Mobile bloom: clean sky is at the TOP, flower at the bottom — so anchor text to the top and darken the top instead of the bottom. */
+  .hero-sec { align-items:flex-start; }
+  .hero-content { padding:104px 24px 0; }
+  .hero-content h1 { font-size:44px !important; line-height:1.06 !important; }
+  .hero-content p { font-size:15px !important; }
+  .hero-grad { background:linear-gradient(180deg, rgba(48,26,22,0.74) 0%, rgba(48,26,22,0.34) 24%, rgba(48,26,22,0.04) 48%, transparent 70%) !important; }
+  .hero-cue { display:none; }
+}
