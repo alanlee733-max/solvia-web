@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const SITE_URL = "https://solvia-web.vercel.app";
+const SITE_URL = "https://solvia-web-two.vercel.app";
 const TITLE = "Solvia Medical — The Path Light Takes";
 const DESCRIPTION =
   "From advanced cosmetics to aesthetic devices and dermal fillers — Solvia carries Korea's most trusted aesthetic brands to clinics and partners across the world.";
