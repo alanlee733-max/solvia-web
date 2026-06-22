@@ -231,6 +231,18 @@ export default function SolviaLandingEN() {
       on(el, "click", () => toggle(key));
     });
 
+    // --- mobile nav (hamburger) -----------------------------------------
+    const burger = document.getElementById("dc-burger");
+    const headerEl = document.getElementById("dc-header");
+    if (burger && headerEl) {
+      on(burger, "click", () => headerEl.classList.toggle("menu-open"));
+      headerEl
+        .querySelectorAll("#dc-nav a")
+        .forEach((a) =>
+          on(a, "click", () => headerEl.classList.remove("menu-open")),
+        );
+    }
+
     // --- resize ----------------------------------------------------------
     const onResize = () => {
       (["01", "02", "03"] as const).forEach((k) => {

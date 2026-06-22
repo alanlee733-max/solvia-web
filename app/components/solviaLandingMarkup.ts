@@ -6,7 +6,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
       <span style="width:5px; height:5px; border-radius:50%; background:var(--accent-soft,#e6b652); align-self:center; transform:translateY(-2px);"></span>
       <span style="font-family:'Jost',sans-serif; font-weight:400; font-size:10px; letter-spacing:0.42em; opacity:0.85; padding-left:0.42em;">MEDICAL</span>
     </a>
-    <nav style="display:flex; align-items:center; gap:clamp(20px,3vw,44px); font-size:12px; letter-spacing:0.18em; text-transform:uppercase;">
+    <button id="dc-burger" aria-label="Open menu" class="dc-burger" style="background:none; border:none; color:inherit; font-size:26px; line-height:1; cursor:pointer; padding:0 4px;">☰</button><nav id="dc-nav" style="display:flex; align-items:center; gap:clamp(20px,3vw,44px); font-size:12px; letter-spacing:0.18em; text-transform:uppercase;">
       <a href="#journey" style="color:inherit; text-decoration:none; opacity:0.85;">Journey</a>
       <a href="#products" style="color:inherit; text-decoration:none; opacity:0.85;">Disciplines</a>
       <a href="#portfolio" style="color:inherit; text-decoration:none; opacity:0.85;">Brands</a>
@@ -20,8 +20,8 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
     <!-- HERO -->
     <section class="hero-sec" id="dc-herosec" data-vpos="bottom" data-halign="left" data-orbs="on" data-cue="on" style="position:relative; height:100vh; min-height:640px; overflow:hidden; display:flex; align-items:flex-end;">
       <picture id="dc-hero" style="position:absolute; inset:0; width:100%; height:100%; transform:scale(1.08); will-change:transform;">
-        <source media="(max-width:760px)" srcset="/assets/hero-bloom-mobile.png">
-        <img src="/assets/hero-bloom.png" alt="" style="width:100%; height:100%; object-fit:cover;">
+        <source media="(max-width:760px)" srcset="/assets/hero-bloom-mobile.webp">
+        <img src="/assets/hero-bloom.webp" alt="" style="width:100%; height:100%; object-fit:cover;">
       </picture>
       <div class="hero-grad" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(46,26,22,0.40) 0%, rgba(46,26,22,0.04) 22%, transparent 50%, rgba(50,24,20,0.46) 74%, rgba(46,22,18,0.86) 100%);"></div>
       <div style="position:absolute; inset:0; background:#3a1e18; opacity:var(--hero-dark,0.06); mix-blend-mode:multiply;"></div>
@@ -73,7 +73,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
         <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(28px,5vw,56px); align-items:start; border-top:1px solid rgba(244,236,221,0.14); padding-top:clamp(40px,7vh,72px);">
           <article style="display:flex; flex-direction:column; gap:22px;">
             <div style="position:relative; aspect-ratio:3/4; border-radius:4px; overflow:hidden;">
-              <img src="/assets/golden-sky.jpg" alt="" style="width:100%; height:100%; object-fit:cover;">
+              <img src="/assets/golden-sky.webp" alt="" style="width:100%; height:100%; object-fit:cover;">
               <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(33,27,19,0.55));"></div>
             </div>
             <span style="font-family:'Cormorant Garamond',serif; font-size:48px; line-height:1; color:var(--accent-soft,#e6b652);">01</span>
@@ -83,7 +83,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
 
           <article style="display:flex; flex-direction:column; gap:22px; transform:translateY(clamp(0px,4vw,40px));">
             <div style="position:relative; aspect-ratio:3/4; border-radius:4px; overflow:hidden;">
-              <img src="/assets/forest-light.jpg" alt="" style="width:100%; height:100%; object-fit:cover;">
+              <img src="/assets/forest-light.webp" alt="" style="width:100%; height:100%; object-fit:cover;">
               <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(33,27,19,0.55));"></div>
             </div>
             <span style="font-family:'Cormorant Garamond',serif; font-size:48px; line-height:1; color:var(--accent-soft,#e6b652);">02</span>
@@ -93,7 +93,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
 
           <article style="display:flex; flex-direction:column; gap:22px;">
             <div style="position:relative; aspect-ratio:3/4; border-radius:4px; overflow:hidden;">
-              <img src="/assets/golden-meadow.jpg" alt="" style="width:100%; height:100%; object-fit:cover;">
+              <img src="/assets/golden-meadow.webp" alt="" style="width:100%; height:100%; object-fit:cover;">
               <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 55%, rgba(33,27,19,0.55));"></div>
             </div>
             <span style="font-family:'Cormorant Garamond',serif; font-size:48px; line-height:1; color:var(--accent-soft,#e6b652);">03</span>
@@ -138,7 +138,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
                   <span style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(32px,3.4vw,46px); color:#e6d6b4; line-height:0.7;">01</span>
                 </div>
                 <div style="position:relative; aspect-ratio:4/5; border-radius:9px; overflow:hidden; margin-bottom:16px;">
-                  <img src="/assets/forest-light.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                  <img src="/assets/forest-light.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
                   <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,0.05), rgba(20,16,10,0.55));"></div>
                   <div style="position:absolute; left:12px; right:12px; bottom:12px; display:flex; gap:6px; flex-wrap:wrap;">
                     <span style="background:rgba(255,253,249,0.18); border:1px solid rgba(255,253,249,0.35); color:#fffdf9; font-size:9px; letter-spacing:0.08em; padding:5px 9px; border-radius:999px;">DERMA</span>
@@ -177,7 +177,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
                   <span style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(32px,3.4vw,46px); color:#ccd3bd; line-height:0.7;">02</span>
                 </div>
                 <div style="position:relative; aspect-ratio:4/5; border-radius:9px; overflow:hidden; margin-bottom:16px;">
-                  <img src="/assets/golden-meadow.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                  <img src="/assets/golden-meadow.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
                   <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,0.05), rgba(20,16,10,0.55));"></div>
                   <div style="position:absolute; left:12px; right:12px; bottom:12px; display:flex; gap:6px; flex-wrap:wrap;">
                     <span style="background:rgba(255,253,249,0.18); border:1px solid rgba(255,253,249,0.35); color:#fffdf9; font-size:9px; letter-spacing:0.08em; padding:5px 9px; border-radius:999px;">RF</span>
@@ -216,7 +216,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
                   <span style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(32px,3.4vw,46px); color:#e3cbb6; line-height:0.7;">03</span>
                 </div>
                 <div style="position:relative; aspect-ratio:4/5; border-radius:9px; overflow:hidden; margin-bottom:16px;">
-                  <img src="/assets/golden-sky.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+                  <img src="/assets/golden-sky.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
                   <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,10,0.05), rgba(20,16,10,0.55));"></div>
                   <div style="position:absolute; left:12px; right:12px; bottom:12px; display:flex; gap:6px; flex-wrap:wrap;">
                     <span style="background:rgba(255,253,249,0.18); border:1px solid rgba(255,253,249,0.35); color:#fffdf9; font-size:9px; letter-spacing:0.08em; padding:5px 9px; border-radius:999px;">DERMAL</span>
@@ -284,7 +284,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
                 <div style="display:flex; flex-wrap:wrap; gap:7px;"><span style="background:#3a2b28; color:#f6ece4; font-size:10px; letter-spacing:0.1em; padding:7px 12px; border-radius:999px;">ANTI-AGING</span><span style="background:#3a2b28; color:#f6ece4; font-size:10px; letter-spacing:0.1em; padding:7px 12px; border-radius:999px;">SERUM</span></div>
               </article>
               <article data-bcard data-name="VANTAGE" style="position:absolute; top:0; left:50%; width:300px; margin-left:-150px; height:440px; border-radius:22px; overflow:hidden; box-sizing:border-box; padding:26px; display:flex; flex-direction:column; box-shadow:0 34px 70px -24px rgba(0,0,0,.55); transform-origin:50% 60%; will-change:transform; cursor:grab; transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .55s ease; transform:translateX(0px) translateY(0px) rotateZ(0deg) rotateY(0deg) scale(1); opacity:1; z-index:120; background:#1a160f; color:#fffdf9;">
-                <img src="/assets/golden-meadow.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+                <img src="/assets/golden-meadow.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
                 <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,16,10,0.42),rgba(20,16,10,0.15) 42%,rgba(20,16,10,0.84)); pointer-events:none;"></div>
                 <div style="position:relative; display:flex; flex-direction:column; height:100%;">
                   <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -311,7 +311,7 @@ export const markup = String.raw`<div style="--accent:#e0a877; --accent-soft:#ec
                 <div style="display:flex; flex-wrap:wrap; gap:7px;"><span style="background:#2a1406; color:#f6ece4; font-size:10px; letter-spacing:0.1em; padding:7px 12px; border-radius:999px;">DERMAL FILLER</span><span style="background:#2a1406; color:#f6ece4; font-size:10px; letter-spacing:0.1em; padding:7px 12px; border-radius:999px;">HA</span></div>
               </article>
               <article data-bcard data-name="CONTOURA" style="position:absolute; top:0; left:50%; width:300px; margin-left:-150px; height:440px; border-radius:22px; overflow:hidden; box-sizing:border-box; padding:26px; display:flex; flex-direction:column; box-shadow:0 34px 70px -24px rgba(0,0,0,.55); transform-origin:50% 60%; will-change:transform; cursor:grab; transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .55s ease; transform:translateX(540px) translateY(90px) rotateZ(18deg) rotateY(-33deg) scale(0.72); opacity:0.64; z-index:90; background:#1a160f; color:#fffdf9;">
-                <img src="/assets/golden-sky.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
+                <img src="/assets/golden-sky.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;">
                 <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,16,10,0.34),rgba(20,16,10,0.1) 40%,rgba(20,16,10,0.82)); pointer-events:none;"></div>
                 <div style="position:relative; display:flex; flex-direction:column; height:100%;">
                   <div style="display:flex; justify-content:space-between; align-items:flex-start;">

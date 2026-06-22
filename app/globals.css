@@ -30,3 +30,41 @@ body { margin: 0; }
   .hero-grad { background:linear-gradient(180deg, rgba(48,26,22,0.74) 0%, rgba(48,26,22,0.34) 24%, rgba(48,26,22,0.04) 48%, transparent 70%) !important; }
   .hero-cue { display:none; }
 }
+
+/* Mobile navigation: collapse the header nav into a hamburger dropdown.
+   The inline nav links overflow narrow screens in the original design. */
+.dc-burger { display:none; }
+@media (max-width:760px) {
+  .dc-burger { display:inline-flex; align-items:center; }
+  #dc-nav {
+    position:absolute !important;
+    top:100% !important;
+    left:0; right:0;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:0 !important;
+    background:rgba(245,238,225,0.98);
+    backdrop-filter:saturate(1.2) blur(12px);
+    -webkit-backdrop-filter:saturate(1.2) blur(12px);
+    border-bottom:1px solid rgba(34,29,22,0.08);
+    padding:0 clamp(24px,5vw,72px) !important;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+  }
+  #dc-header.menu-open #dc-nav {
+    max-height:360px;
+    padding-top:8px !important;
+    padding-bottom:20px !important;
+  }
+  #dc-nav a {
+    color:#221d16 !important;
+    width:100%;
+    padding:14px 0 !important;
+    border:none !important;
+    border-radius:0 !important;
+    opacity:1 !important;
+    border-bottom:1px solid rgba(34,29,22,0.08) !important;
+  }
+  #dc-nav a:last-child { border-bottom:none !important; }
+}

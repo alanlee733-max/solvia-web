@@ -1,10 +1,37 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const SITE_URL = "https://solvia-web.vercel.app";
+const TITLE = "Solvia Medical — The Path Light Takes";
+const DESCRIPTION =
+  "From advanced cosmetics to aesthetic devices and dermal fillers — Solvia carries Korea's most trusted aesthetic brands to clinics and partners across the world.";
+
 export const metadata: Metadata = {
-  title: "Solvia Medical — The Path Light Takes",
-  description:
-    "From advanced cosmetics to aesthetic devices and dermal fillers — Solvia carries Korea's most trusted aesthetic brands to clinics and partners across the world.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/",
+    siteName: "Solvia Medical",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/assets/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Solvia Medical — The Path Light Takes",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/assets/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
