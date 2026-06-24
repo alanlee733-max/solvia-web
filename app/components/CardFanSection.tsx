@@ -96,10 +96,61 @@ export default function CardFanSection() {
       bLayout(bPos, true);
     };
 
-    const stage = root.querySelector<HTMLElement>("[data-bstage]");
     measure();
-    bLayout(bPos, false);
 
+    // --- Intro: cards fly in from left with stagger ---
+    let introFired = false;
+    const cards = Array.from(root.querySelectorAll<HTMLElement>("[data-bcard]"));
+
+    cards.forEach((el) => {
+      el.style.transition = "none";
+      el.style.transform = `translateX(${-(sp * 4 + 300)}px) rotateZ(-6deg) rotateY(22deg) scale(0.84)`;
+      el.style.opacity = "0";
+    });
+
+    const triggerIntro = () => {
+      if (introFired) return;
+      introFired = true;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const act = Math.round(bPos);
+          cards.forEach((el, i) => {
+            const off = i - bPos;
+            const abs = Math.abs(off);
+            const cl = Math.min(abs, 3);
+            el.style.transition = `transform .8s cubic-bezier(.2,.7,.2,1) ${i * 70}ms, opacity .55s ease ${i * 55}ms`;
+            el.style.transform = `translateX(${off * sp}px) translateY(${cl * cl * 10}px) rotateZ(${off * 6}deg) rotateY(${-off * 11}deg) scale(${Math.max(0.72, 1 - cl * 0.12)})`;
+            el.style.zIndex = String(120 - Math.round(cl * 10));
+            el.style.opacity = String(abs > 3.2 ? 0 : 1 - cl * 0.16);
+          });
+          root.querySelectorAll<HTMLElement>("[data-bdot]").forEach((dot, i) => {
+            dot.style.width = i === act ? "26px" : "8px";
+            dot.style.background = i === act ? ACCENT_SOFT : "rgba(244,236,221,0.28)";
+          });
+          const cap = root.querySelector("[data-bcaption]");
+          if (cap) cap.textContent = BCAPS[act] ?? "";
+        });
+      });
+    };
+
+    let introIo: IntersectionObserver | undefined;
+    if ("IntersectionObserver" in window) {
+      introIo = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            triggerIntro();
+            introIo!.disconnect();
+            introIo = undefined;
+          }
+        },
+        { threshold: 0.12 },
+      );
+      introIo.observe(root);
+    } else {
+      triggerIntro();
+    }
+
+    const stage = root.querySelector<HTMLElement>("[data-bstage]");
     if (stage) {
       on(stage, "pointerdown", (e) => {
         const ev = e as PointerEvent;
@@ -144,7 +195,10 @@ export default function CardFanSection() {
 
     on(window, "resize", () => { measure(); bLayout(bActive, false); });
 
-    return () => cleanups.forEach((fn) => fn());
+    return () => {
+      cleanups.forEach((fn) => fn());
+      if (introIo) introIo.disconnect();
+    };
   }, []);
 
   return (
