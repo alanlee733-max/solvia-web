@@ -196,7 +196,6 @@ export default function CardFanSection() {
                 WebkitUserSelect: "none",
                 userSelect: "none",
                 cursor: "grab",
-                overflow: "hidden",
               }}
             >
               <div data-btrack style={{ position: "absolute", inset: 0, transformStyle: "preserve-3d" }}>
