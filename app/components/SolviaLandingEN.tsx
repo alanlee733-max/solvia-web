@@ -212,6 +212,12 @@ export default function SolviaLandingEN() {
       activeCards = computeActive();
       measure();
       bLayout(bPos, false);
+      // Start cards stacked at center for entrance animation (fan out on section reveal)
+      getAllCards().forEach((el) => {
+        el.style.transition = "none";
+        el.style.transform = "translateX(0) translateY(20px) scale(0.84)";
+        el.style.opacity = "0";
+      });
 
       // Discipline filter chips
       const scope = root.closest("section") || document;
@@ -323,8 +329,15 @@ export default function SolviaLandingEN() {
     const els = document.querySelectorAll("[data-reveal]");
     let io: IntersectionObserver | undefined;
     let revealFallback: number | undefined;
+    let fanTimer: ReturnType<typeof setTimeout> | undefined;
+    const fanEntrance = () => {
+      if (root) window.setTimeout(() => bLayout(bActive, true), 550);
+    };
+    cleanups.push(() => { if (fanTimer) clearTimeout(fanTimer); });
+
     if (!motion || !("IntersectionObserver" in window)) {
       els.forEach(reveal);
+      fanEntrance();
     } else {
       io = new IntersectionObserver(
         (entries) => {
@@ -332,6 +345,9 @@ export default function SolviaLandingEN() {
             if (e.isIntersecting) {
               reveal(e.target);
               io!.unobserve(e.target);
+              if (root && (e.target as HTMLElement).closest?.("#products")) {
+                fanEntrance();
+              }
             }
           });
         },
@@ -342,6 +358,7 @@ export default function SolviaLandingEN() {
         document.querySelectorAll("[data-reveal]").forEach((el) => {
           if (getComputedStyle(el).opacity !== "1") reveal(el);
         });
+        fanEntrance();
       }, 1600);
     }
 
