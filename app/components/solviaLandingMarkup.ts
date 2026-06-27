@@ -95,7 +95,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
 
           <!-- fan coverflow carousel -->
           <div data-bcarousel style="position:relative;">
-            <div data-bstage tabindex="0" style="position:relative; height:480px; perspective:1600px; outline:none; touch-action:pan-y; -webkit-user-select:none; user-select:none;">
+            <div data-bstage tabindex="0" style="position:relative; height:480px; perspective:1100px; outline:none; touch-action:pan-y; -webkit-user-select:none; user-select:none;">
               <div data-btrack style="position:absolute; inset:0; transform-style:preserve-3d;">
 
               <article data-bcard data-name="OVALLA" data-bovalla="1" data-disc="cosmetics" style="position:absolute; top:0; left:50%; width:300px; margin-left:-150px; height:440px; border-radius:22px; overflow:hidden; box-sizing:border-box; padding:26px; display:flex; flex-direction:column; box-shadow:0 34px 70px -24px rgba(0,0,0,.55); transform-origin:50% 60%; will-change:transform; cursor:pointer; transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .55s ease; transform:translateX(-360px) translateY(40px) rotateZ(-12deg) rotateY(22deg) scale(0.76); opacity:0.68; z-index:100; background:#1a2818; color:#fffdf9;">

@@ -97,6 +97,10 @@ export default function SolviaLandingEN() {
     let drag: { x: number; pos: number } | null = null;
     let currentFilter = "all";
     let activeCards: HTMLElement[] = [];
+    let hoveredCard: HTMLElement | null = null;
+    let rafId = 0;
+    let autoDir = 1;
+    let lastT = 0;
 
     const getAllCards = (): HTMLElement[] => {
       if (!root) return [];
@@ -132,7 +136,7 @@ export default function SolviaLandingEN() {
       const active = activeCards.length ? activeCards : getAllCards();
       const activeSet = new Set(active);
       const trans =
-        "transform .6s cubic-bezier(.2,.7,.2,1), opacity .55s ease";
+        "transform .6s cubic-bezier(.2,.7,.2,1), opacity .55s ease, box-shadow .45s ease";
 
       getAllCards().forEach((el) => {
         if (!activeSet.has(el)) {
@@ -147,15 +151,20 @@ export default function SolviaLandingEN() {
         const off = i - pos;
         const abs = Math.abs(off);
         const cl = Math.min(abs, 3);
-        const x = off * sp;
-        const dip = cl * cl * 10;
-        const rotZ = off * 6;
-        const rotY = -off * 11;
-        const scale = Math.max(0.72, 1 - cl * 0.12);
+        const x = off * sp * 1.8;
+        const z = -cl * 80;
+        const rotY = -off * 38;
+        const scale = Math.max(0.78, 1 - cl * 0.05);
+        const isHov = el === hoveredCard;
         el.style.transition = animate ? trans : "none";
-        el.style.transform = `translateX(${x}px) translateY(${dip}px) rotateZ(${rotZ}deg) rotateY(${rotY}deg) scale(${scale})`;
-        el.style.zIndex = String(120 - Math.round(cl * 10));
-        el.style.opacity = String(abs > 3.2 ? 0 : 1 - cl * 0.16);
+        el.style.transform = isHov
+          ? `translateX(${x}px) translateY(-20px) translateZ(${z + 70}px) rotateY(${rotY * 0.45}deg) scale(${scale + 0.06})`
+          : `translateX(${x}px) translateY(0px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
+        el.style.zIndex = String(isHov ? 220 : 120 - Math.round(cl * 10));
+        el.style.opacity = String(isHov ? 1 : abs > 3.4 ? 0 : 1 - cl * 0.12);
+        el.style.boxShadow = isHov
+          ? "0 38px 80px -24px rgba(0,0,0,0.55)"
+          : "0 18px 50px -28px rgba(0,0,0,0.45)";
       });
 
       const act = Math.max(0, Math.min(active.length - 1, Math.round(pos)));
@@ -174,6 +183,29 @@ export default function SolviaLandingEN() {
       }
     };
 
+    const startAuto = () => {
+      if (rafId) return;
+      lastT = performance.now();
+      const tick = (t: number) => {
+        const dt = Math.min(0.05, (t - lastT) / 1000);
+        lastT = t;
+        if (!drag) {
+          const n = activeCards.length;
+          if (n > 1) {
+            let p = bPos + autoDir * 0.3 * dt;
+            if (p >= n - 1) { p = n - 1; autoDir = -1; }
+            else if (p <= 0) { p = 0; autoDir = 1; }
+            bPos = p; bActive = Math.round(p);
+            bLayout(p, false);
+          }
+        }
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+    };
+    const stopAuto = () => { if (rafId) { cancelAnimationFrame(rafId); rafId = 0; } };
+    cleanups.push(stopAuto);
+
     const bGoTo = (i: number) => {
       const max = activeCards.length - 1;
       bActive = Math.max(0, Math.min(max, i));
@@ -185,8 +217,10 @@ export default function SolviaLandingEN() {
 
     const applyFilter = (key: string) => {
       if (key === currentFilter) return;
+      stopAuto();
       currentFilter = key;
       activeCards = computeActive();
+      autoDir = 1;
       bActive = Math.floor((activeCards.length - 1) / 2);
       bPos = bActive;
 
@@ -205,6 +239,7 @@ export default function SolviaLandingEN() {
       }
 
       bLayout(bPos, true);
+      startAuto();
     };
 
     if (root) {
@@ -229,6 +264,7 @@ export default function SolviaLandingEN() {
 
       if (stage) {
         on(stage, "pointerdown", (e) => {
+          stopAuto();
           const ev = e as PointerEvent;
           drag = { x: ev.clientX, pos: bPos };
           stage.style.cursor = "grabbing";
@@ -237,23 +273,43 @@ export default function SolviaLandingEN() {
           } catch {}
         });
         on(stage, "pointermove", (e) => {
-          if (!drag) return;
           const ev = e as PointerEvent;
-          const dx = ev.clientX - drag.x;
-          let p = drag.pos - dx / sp;
-          p = Math.max(-0.45, Math.min(activeCards.length - 1 + 0.45, p));
-          bPos = p;
-          bLayout(p, false);
+          if (drag) {
+            const dx = ev.clientX - drag.x;
+            let p = drag.pos - dx / sp;
+            p = Math.max(-0.45, Math.min(activeCards.length - 1 + 0.45, p));
+            bPos = p;
+            bLayout(p, false);
+            return;
+          }
+          // Hover card detection
+          const active = activeCards.length ? activeCards : getAllCards();
+          let newHov: HTMLElement | null = null;
+          for (const c of active) {
+            if ((parseFloat(c.style.opacity) || 0) < 0.06) continue;
+            const r = c.getBoundingClientRect();
+            if (ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom) {
+              const z = parseInt(c.style.zIndex, 10) || 0;
+              if (!newHov || z > (parseInt(newHov.style.zIndex, 10) || 0)) newHov = c;
+            }
+          }
+          if (newHov !== hoveredCard) { hoveredCard = newHov; bLayout(bPos, true); }
         });
         const onUp = () => {
           if (!drag) return;
           drag = null;
           stage.style.cursor = "grab";
           bGoTo(Math.round(bPos));
+          startAuto();
         };
         on(stage, "pointerup", onUp);
         on(stage, "pointercancel", onUp);
-        on(stage, "pointerleave", onUp);
+        on(stage, "pointerleave", () => {
+          onUp();
+          if (hoveredCard) { hoveredCard = null; bLayout(bPos, true); }
+          startAuto();
+        });
+        on(stage, "pointerenter", stopAuto);
         on(stage, "keydown", (e) => {
           const ev = e as KeyboardEvent;
           if (ev.key === "ArrowLeft") {
@@ -331,7 +387,11 @@ export default function SolviaLandingEN() {
     let revealFallback: number | undefined;
     let fanTimer: ReturnType<typeof setTimeout> | undefined;
     const fanEntrance = () => {
-      if (root) window.setTimeout(() => bLayout(bActive, true), 550);
+      if (!root) return;
+      window.setTimeout(() => {
+        bLayout(bActive, true);
+        window.setTimeout(startAuto, 700);
+      }, 550);
     };
     cleanups.push(() => { if (fanTimer) clearTimeout(fanTimer); });
 
