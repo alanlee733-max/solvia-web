@@ -3,17 +3,13 @@
 import { useEffect } from "react";
 import { markup } from "./solviaLandingMarkup";
 
-// Faithful port of the "Solvia Landing EN" design (claude.ai/design project
-// Solvia-web2). The markup is injected verbatim; this effect reproduces the
-// behaviour from the original DCLogic component: a colour-shifting sticky
-// header, hero parallax, scroll-reveal, the three discipline accordions, and
-// the fan/coverflow brand carousel (drag, arrows, dots, keyboard).
 export default function SolviaLandingEN() {
   useEffect(() => {
-    const accentSoft = "#ecc3a0"; // Blush accent (design default)
+    const accentSoft = "#e6b652";
     const heroZoom = 1.08;
     const parallax = true;
     const motion = true;
+    const WA_NUMBER = "821029323001";
 
     const cleanups: Array<() => void> = [];
     const on = (
@@ -51,20 +47,69 @@ export default function SolviaLandingEN() {
       }
     };
 
+    // --- mobile nav overlay ---------------------------------------------
+    const openMnav = () => {
+      const o = document.getElementById("mnav-overlay");
+      if (o) {
+        o.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+    };
+    const closeMnav = () => {
+      const o = document.getElementById("mnav-overlay");
+      if (o) {
+        o.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    };
+
+    const burger = document.getElementById("nav-burger");
+    if (burger) on(burger, "click", openMnav);
+
+    const mnavClose = document.getElementById("mnav-close");
+    if (mnavClose) on(mnavClose, "click", closeMnav);
+
+    document
+      .querySelectorAll("#mnav-links a, #mnav-contact")
+      .forEach((a) => on(a, "click", closeMnav));
+
     // --- brand coverflow carousel ---------------------------------------
-    const root = document.querySelector("[data-bcarousel]") as HTMLElement | null;
-    const bcaps = [
-      "AETHER — Barrier-repair skincare",
-      "NOVELUME — Anti-aging serum science",
-      "VANTAGE — Monopolar RF system",
-      "PULSE — EMS lifting device",
-      "HYALA — HA dermal filler",
-      "CONTOURA — Volumizing filler",
-    ];
+    const root = document.querySelector(
+      "[data-bcarousel]",
+    ) as HTMLElement | null;
+    const bcaps: Record<string, string> = {
+      OVALLA: "ōvalla — Sustainable beauty · CICA care · tap to view lineup",
+      NOVELUME: "NOVELUME — Anti-aging serum science",
+      VANTAGE: "VANTAGE — Monopolar RF system",
+      PULSE: "PULSE — EMS lifting device",
+      HYALA: "HYALA — HA dermal filler",
+      CONTOURA: "CONTOURA — Volumizing filler",
+    };
+    const chipColors: Record<string, string> = {
+      all: "#e6b652",
+      cosmetics: "#c08a2e",
+      devices: "#6b7a4e",
+      fillers: "#b06f44",
+    };
     let bPos = 2;
     let bActive = 2;
     let sp = 190;
     let drag: { x: number; pos: number } | null = null;
+    let currentFilter = "all";
+    let activeCards: HTMLElement[] = [];
+
+    const getAllCards = (): HTMLElement[] => {
+      if (!root) return [];
+      return Array.from(root.querySelectorAll("[data-bcard]")) as HTMLElement[];
+    };
+
+    const computeActive = (): HTMLElement[] => {
+      const all = getAllCards();
+      if (currentFilter === "all") return all;
+      return all.filter(
+        (c) => c.getAttribute("data-disc") === currentFilter,
+      );
+    };
 
     const measure = () => {
       if (!root) return;
@@ -75,8 +120,7 @@ export default function SolviaLandingEN() {
       const cardH = Math.round(cardW * 1.46);
       sp = cardW * 0.6;
       stage.style.height = cardH + 36 + "px";
-      root.querySelectorAll("[data-bcard]").forEach((c) => {
-        const el = c as HTMLElement;
+      getAllCards().forEach((el) => {
         el.style.width = cardW + "px";
         el.style.marginLeft = -cardW / 2 + "px";
         el.style.height = cardH + "px";
@@ -85,11 +129,21 @@ export default function SolviaLandingEN() {
 
     const bLayout = (pos: number, animate = true) => {
       if (!root) return;
-      const cards = root.querySelectorAll("[data-bcard]");
+      const active = activeCards.length ? activeCards : getAllCards();
+      const activeSet = new Set(active);
       const trans =
         "transform .6s cubic-bezier(.2,.7,.2,1), opacity .55s ease";
-      cards.forEach((c, i) => {
-        const el = c as HTMLElement;
+
+      getAllCards().forEach((el) => {
+        if (!activeSet.has(el)) {
+          el.style.transition = animate ? trans : "none";
+          el.style.transform = "translateX(2000px) scale(0.5)";
+          el.style.opacity = "0";
+          el.style.zIndex = "0";
+        }
+      });
+
+      active.forEach((el, i) => {
         const off = i - pos;
         const abs = Math.abs(off);
         const cl = Math.min(abs, 3);
@@ -99,34 +153,29 @@ export default function SolviaLandingEN() {
         const rotY = -off * 11;
         const scale = Math.max(0.72, 1 - cl * 0.12);
         el.style.transition = animate ? trans : "none";
-        el.style.transform =
-          "translateX(" +
-          x +
-          "px) translateY(" +
-          dip +
-          "px) rotateZ(" +
-          rotZ +
-          "deg) rotateY(" +
-          rotY +
-          "deg) scale(" +
-          scale +
-          ")";
+        el.style.transform = `translateX(${x}px) translateY(${dip}px) rotateZ(${rotZ}deg) rotateY(${rotY}deg) scale(${scale})`;
         el.style.zIndex = String(120 - Math.round(cl * 10));
         el.style.opacity = String(abs > 3.2 ? 0 : 1 - cl * 0.16);
       });
-      const act = Math.max(0, Math.min(cards.length - 1, Math.round(pos)));
+
+      const act = Math.max(0, Math.min(active.length - 1, Math.round(pos)));
       root.querySelectorAll("[data-bdot]").forEach((d, i) => {
         const el = d as HTMLElement;
-        const onDot = i === act;
-        el.style.width = onDot ? "26px" : "8px";
-        el.style.background = onDot ? accentSoft : "rgba(244,236,221,0.28)";
+        el.style.display = i < active.length ? "inline-block" : "none";
+        el.style.width = i === act ? "26px" : "8px";
+        el.style.background =
+          i === act ? accentSoft : "rgba(244,236,221,0.28)";
       });
+
       const cap = root.querySelector("[data-bcaption]");
-      if (cap) cap.textContent = bcaps[act] || "";
+      if (cap) {
+        const name = active[act]?.getAttribute("data-name") || "";
+        cap.textContent = bcaps[name] || "";
+      }
     };
 
     const bGoTo = (i: number) => {
-      const max = bcaps.length - 1;
+      const max = activeCards.length - 1;
       bActive = Math.max(0, Math.min(max, i));
       bPos = bActive;
       bLayout(bPos, true);
@@ -134,10 +183,43 @@ export default function SolviaLandingEN() {
     const bNext = () => bGoTo(bActive + 1);
     const bPrev = () => bGoTo(bActive - 1);
 
+    const applyFilter = (key: string) => {
+      if (key === currentFilter) return;
+      currentFilter = key;
+      activeCards = computeActive();
+      bActive = Math.floor((activeCards.length - 1) / 2);
+      bPos = bActive;
+
+      if (root) {
+        const scope = root.closest("section") || document;
+        scope.querySelectorAll("[data-bchip]").forEach((b) => {
+          const el = b as HTMLElement;
+          const chipKey = el.getAttribute("data-bchip")!;
+          const isActive = chipKey === key;
+          const col = chipColors[chipKey] || "#e6b652";
+          el.style.background = isActive ? col : "transparent";
+          el.style.borderColor = isActive ? col : "rgba(244,236,221,0.3)";
+          el.style.color = isActive ? "#1c1408" : "rgba(244,236,221,0.82)";
+          el.style.fontWeight = isActive ? "600" : "400";
+        });
+      }
+
+      bLayout(bPos, true);
+    };
+
     if (root) {
       const stage = root.querySelector("[data-bstage]") as HTMLElement | null;
+      activeCards = computeActive();
       measure();
       bLayout(bPos, false);
+
+      // Discipline filter chips
+      const scope = root.closest("section") || document;
+      scope.querySelectorAll("[data-bchip]").forEach((b) => {
+        on(b as HTMLElement, "click", () => {
+          applyFilter((b as HTMLElement).getAttribute("data-bchip") || "all");
+        });
+      });
 
       if (stage) {
         on(stage, "pointerdown", (e) => {
@@ -153,7 +235,7 @@ export default function SolviaLandingEN() {
           const ev = e as PointerEvent;
           const dx = ev.clientX - drag.x;
           let p = drag.pos - dx / sp;
-          p = Math.max(-0.45, Math.min(bcaps.length - 1 + 0.45, p));
+          p = Math.max(-0.45, Math.min(activeCards.length - 1 + 0.45, p));
           bPos = p;
           bLayout(p, false);
         });
@@ -195,60 +277,33 @@ export default function SolviaLandingEN() {
       root.querySelectorAll("[data-bdot]").forEach((d, i) => {
         on(d as HTMLElement, "click", () => bGoTo(i));
       });
-      root.querySelectorAll("[data-bcard]").forEach((c, i) => {
-        on(c as HTMLElement, "click", () => {
-          if (i !== bActive) bGoTo(i);
+      root.querySelectorAll("[data-bcard]").forEach((c) => {
+        on(c as HTMLElement, "click", (e) => {
+          if ((e.target as HTMLElement).closest("[data-bovalla-cta]")) return;
+          const idx = activeCards.indexOf(c as HTMLElement);
+          if (idx !== -1 && idx !== bActive) bGoTo(idx);
         });
       });
     }
 
-    // --- discipline accordions ------------------------------------------
-    const open: Record<string, boolean> = { "01": false, "02": false, "03": false };
-    const toggle = (key: string) => {
-      const panel = document.getElementById("dc-panel-" + key);
-      const arrow = document.getElementById("dc-arrow-" + key);
-      const label = document.getElementById("dc-label-" + key);
-      if (!panel) return;
-      const isOpen = !open[key];
-      open[key] = isOpen;
-      if (isOpen) {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-        panel.style.opacity = "1";
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-        requestAnimationFrame(() => {
-          panel.style.maxHeight = "0px";
-          panel.style.opacity = "0";
-        });
-      }
-      if (arrow)
-        arrow.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
-      if (label) label.textContent = isOpen ? "Close" : "Explore Products";
-    };
-    document.querySelectorAll("[data-toggle]").forEach((b) => {
-      const el = b as HTMLElement;
-      const key = el.getAttribute("data-toggle") || "";
-      on(el, "click", () => toggle(key));
-    });
-
-    // --- mobile nav (hamburger) -----------------------------------------
-    const burger = document.getElementById("dc-burger");
-    const headerEl = document.getElementById("dc-header");
-    if (burger && headerEl) {
-      on(burger, "click", () => headerEl.classList.toggle("menu-open"));
-      headerEl
-        .querySelectorAll("#dc-nav a")
-        .forEach((a) =>
-          on(a, "click", () => headerEl.classList.remove("menu-open")),
+    // --- WhatsApp FAB ---------------------------------------------------
+    const waFab = document.getElementById("wa-fab");
+    if (waFab) {
+      on(waFab, "click", () => {
+        window.open(
+          "https://wa.me/" +
+            WA_NUMBER +
+            "?text=" +
+            encodeURIComponent(
+              "Hello, I am interested in partnering with Solvia Medical.",
+            ),
+          "_blank",
         );
+      });
     }
 
     // --- resize ----------------------------------------------------------
     const onResize = () => {
-      (["01", "02", "03"] as const).forEach((k) => {
-        const p = document.getElementById("dc-panel-" + k);
-        if (p && open[k]) p.style.maxHeight = p.scrollHeight + "px";
-      });
       if (root) {
         measure();
         bLayout(bActive, false);
@@ -283,7 +338,6 @@ export default function SolviaLandingEN() {
         { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
       );
       els.forEach((el) => io!.observe(el));
-      // Safety net: never leave content permanently hidden if IO fails to fire.
       revealFallback = window.setTimeout(() => {
         document.querySelectorAll("[data-reveal]").forEach((el) => {
           if (getComputedStyle(el).opacity !== "1") reveal(el);

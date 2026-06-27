@@ -1,4 +1,4 @@
-/* Solvia Landing EN — base + hero responsive styles (ported from the design) */
+/* Solvia Landing EN — base + responsive styles */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; }
@@ -7,7 +7,9 @@ body { margin: 0; }
 @keyframes drift { 0% { transform: translate(0,0); opacity:0; } 20% { opacity:0.9; } 100% { transform: translate(14px,-90px); opacity:0; } }
 @keyframes cue { 0%,100% { transform: translateY(0); opacity:0.35; } 50% { transform: translateY(8px); opacity:1; } }
 @keyframes glow { 0%,100% { opacity:0.55; } 50% { opacity:0.85; } }
+@keyframes waPulse { 0% { box-shadow:0 0 0 0 rgba(37,211,102,0.5); } 70% { box-shadow:0 0 0 16px rgba(37,211,102,0); } 100% { box-shadow:0 0 0 0 rgba(37,211,102,0); } }
 
+/* hero responsive */
 @media (min-width:761px) {
   .hero-sec[data-vpos="top"] { align-items:flex-start; }
   .hero-sec[data-vpos="top"] .hero-content { padding-top:128px; }
@@ -22,7 +24,6 @@ body { margin: 0; }
 .hero-sec[data-cue="off"] .hero-cue { display:none; }
 
 @media (max-width:760px) {
-  /* Mobile bloom: clean sky is at the TOP, flower at the bottom — so anchor text to the top and darken the top instead of the bottom. */
   .hero-sec { align-items:flex-start; }
   .hero-content { padding:104px 24px 0; }
   .hero-content h1 { font-size:44px !important; line-height:1.06 !important; }
@@ -31,40 +32,23 @@ body { margin: 0; }
   .hero-cue { display:none; }
 }
 
-/* Mobile navigation: collapse the header nav into a hamburger dropdown.
-   The inline nav links overflow narrow screens in the original design. */
-.dc-burger { display:none; }
+/* mobile nav overlay */
+.nav-burger { display:none; }
+.mnav-overlay { opacity:0; visibility:hidden; transform:translateY(-10px); transition:opacity .45s ease, transform .55s cubic-bezier(.2,.7,.2,1), visibility .45s; }
+.mnav-overlay.open { opacity:1; visibility:visible; transform:translateY(0); }
+.mnav-link { transform:translateY(14px); opacity:0; transition:transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease; }
+.mnav-overlay.open .mnav-link { transform:translateY(0); opacity:1; }
+.mnav-overlay.open .mnav-link:nth-child(1){transition-delay:.08s;}
+.mnav-overlay.open .mnav-link:nth-child(2){transition-delay:.14s;}
+.mnav-overlay.open .mnav-link:nth-child(3){transition-delay:.20s;}
+.mnav-overlay.open .mnav-link:nth-child(4){transition-delay:.26s;}
+.mnav-overlay.open .mnav-link:nth-child(5){transition-delay:.32s;}
+
+/* wa fab */
+.wa-fab:hover .wa-label { max-width:280px; padding:0 20px 0 22px; }
+
 @media (max-width:760px) {
-  .dc-burger { display:inline-flex; align-items:center; }
-  #dc-nav {
-    position:absolute !important;
-    top:100% !important;
-    left:0; right:0;
-    flex-direction:column !important;
-    align-items:flex-start !important;
-    gap:0 !important;
-    background:rgba(245,238,225,0.98);
-    backdrop-filter:saturate(1.2) blur(12px);
-    -webkit-backdrop-filter:saturate(1.2) blur(12px);
-    border-bottom:1px solid rgba(34,29,22,0.08);
-    padding:0 clamp(24px,5vw,72px) !important;
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .35s ease;
-  }
-  #dc-header.menu-open #dc-nav {
-    max-height:360px;
-    padding-top:8px !important;
-    padding-bottom:20px !important;
-  }
-  #dc-nav a {
-    color:#221d16 !important;
-    width:100%;
-    padding:14px 0 !important;
-    border:none !important;
-    border-radius:0 !important;
-    opacity:1 !important;
-    border-bottom:1px solid rgba(34,29,22,0.08) !important;
-  }
-  #dc-nav a:last-child { border-bottom:none !important; }
+  .nav-desktop { display:none !important; }
+  .nav-burger { display:inline-flex !important; }
+  .wa-fab .wa-label { display:none !important; }
 }
