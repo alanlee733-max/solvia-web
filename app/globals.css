@@ -47,6 +47,22 @@ body { margin: 0; }
 /* wa fab */
 .wa-fab:hover .wa-label { max-width:280px; padding:0 20px 0 22px; }
 
+/* brand carousel (drifting two-row marquee) */
+.bc-frame { position:relative; width:100%; margin:0 auto; background:#241a17; border:1px solid rgba(230,182,82,0.22); border-radius:26px; padding:28px 0 34px; box-shadow:inset 0 1px 0 rgba(244,236,221,0.05), 0 50px 100px -46px rgba(0,0,0,.6); overflow:hidden; }
+.bc-mask { position:relative; overflow:hidden; padding:26px 0; }
+.bc-mask::before, .bc-mask::after { content:''; position:absolute; top:0; bottom:0; width:110px; z-index:6; pointer-events:none; }
+.bc-mask::before { left:0; background:linear-gradient(90deg,#241a17,transparent); }
+.bc-mask::after { right:0; background:linear-gradient(270deg,#241a17,transparent); }
+.bc-track { display:flex; width:max-content; perspective:1500px; will-change:transform; cursor:grab; }
+.bc-track.dragging { cursor:grabbing; }
+.bc-card { position:relative; flex:none; height:clamp(272px,32vh,320px); border-radius:20px; overflow:hidden; text-decoration:none; color:#fffdf9; transform-origin:50% 55%; backface-visibility:hidden; will-change:transform; box-shadow:0 30px 60px -30px rgba(0,0,0,.6); transition:box-shadow .4s ease; }
+.bc-card::after { content:'\2192'; position:absolute; top:17px; right:20px; z-index:4; font-size:22px; line-height:1; color:#e6b652; opacity:0; transform:translateX(-8px); transition:opacity .4s ease, transform .4s cubic-bezier(.2,.7,.2,1); pointer-events:none; text-shadow:0 0 12px rgba(230,182,82,0.5); }
+.bc-card:hover::after { opacity:1; transform:translateX(0); }
+.bc-card:hover { box-shadow:0 30px 60px -28px rgba(0,0,0,.6), inset 0 0 0 2px rgba(230,182,82,0.65); }
+.bc-card .bc-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1s cubic-bezier(.2,.7,.2,1); pointer-events:none; }
+.bc-card:hover .bc-img { transform:scale(1.07); }
+.bc-cell { position:relative; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:24px; }
+
 @media (max-width:760px) {
   .nav-desktop { display:none !important; }
   .nav-burger { display:inline-flex !important; }
