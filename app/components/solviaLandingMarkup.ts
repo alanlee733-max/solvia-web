@@ -75,8 +75,9 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     </section>
 
     <!-- BRANDS -->
-    <section id="products" style="background:#f6ece4; padding:clamp(90px,14vh,180px) clamp(24px,5vw,72px);">
-      <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); max-width:1280px; margin:0 auto;">
+    <section id="products" style="position:relative; overflow:hidden; background:#f6ece4; padding:clamp(90px,14vh,180px) clamp(24px,5vw,72px);">
+      <div aria-hidden="true" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:0; pointer-events:none; user-select:none; font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(200px,29vw,560px); line-height:0.8; letter-spacing:0.01em; color:rgba(58,43,40,0.055); white-space:nowrap;">SOLVIA</div>
+      <div data-reveal style="position:relative; z-index:1; opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); max-width:1520px; margin:0 auto;">
         <section style="position:relative; background:#3a2b28; border-radius:clamp(28px,3vw,44px); padding:clamp(40px,5.5vw,80px) clamp(24px,4vw,60px) clamp(44px,5.5vw,72px); overflow:hidden;">
           <div style="position:absolute; top:38%; left:50%; width:680px; height:680px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle, rgba(230,182,82,0.12), transparent 66%); pointer-events:none;"></div>
           <div style="position:relative; text-align:center; margin-bottom:clamp(30px,4.5vw,48px);">
