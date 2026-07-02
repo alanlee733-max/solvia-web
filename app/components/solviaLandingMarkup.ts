@@ -12,7 +12,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
       <a href="#products" style="color:inherit; text-decoration:none; opacity:0.85;">Brands</a>
       <a href="/ovalla" style="color:inherit; text-decoration:none; opacity:0.85;">Ovalla</a>
       <a href="#global" style="color:inherit; text-decoration:none; opacity:0.85;">Global</a>
-      <a href="#contact" style="display:inline-flex; align-items:center; gap:8px; color:inherit; text-decoration:none; border:1px solid currentColor; padding:9px 18px; border-radius:999px; opacity:0.95;">Contact<span style="font-size:14px; line-height:1;">→</span></a>
+      <a href="#contact" class="magnetic-btn" style="display:inline-flex; align-items:center; color:inherit; text-decoration:none; border:1px solid currentColor; padding:9px 18px; border-radius:999px; opacity:0.95;"><span class="magnetic-btn-fill"></span><span class="magnetic-btn-label">Contact<span class="magnetic-btn-arrow" style="font-size:14px; line-height:1;">→</span></span></a>
     </nav>
     <button type="button" id="nav-burger" class="nav-burger" aria-label="Open menu" style="background:none; border:0; color:inherit; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; padding:0;">
       <span style="display:block; width:26px; height:1.5px; background:currentColor; box-shadow:0 7px 0 currentColor;"></span>

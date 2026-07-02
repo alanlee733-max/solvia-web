@@ -63,6 +63,16 @@ body { margin: 0; }
 .bc-card:hover .bc-img { transform:scale(1.07); }
 .bc-cell { position:relative; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:24px; }
 
+/* magnetic contact button (lift + gold fill on hover) */
+.magnetic-btn { position:relative; overflow:hidden; will-change:transform; transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; }
+.magnetic-btn:hover, .magnetic-btn:focus-visible { transform:translateY(-4px) scale(1.03); box-shadow:0 16px 30px -12px rgba(180,130,30,0.55); }
+.magnetic-btn-fill { position:absolute; inset:0; background:#e6b652; border-radius:999px; transform:scaleX(0); transform-origin:center; transition:transform .5s cubic-bezier(.2,.7,.2,1); z-index:0; }
+.magnetic-btn:hover .magnetic-btn-fill, .magnetic-btn:focus-visible .magnetic-btn-fill { transform:scaleX(1); }
+.magnetic-btn-label { position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px; transition:color .35s ease; }
+.magnetic-btn:hover .magnetic-btn-label, .magnetic-btn:focus-visible .magnetic-btn-label { color:#221d16; }
+.magnetic-btn-arrow { display:inline-block; transition:transform .45s cubic-bezier(.2,.7,.2,1); }
+.magnetic-btn:hover .magnetic-btn-arrow, .magnetic-btn:focus-visible .magnetic-btn-arrow { transform:translateX(4px); }
+
 @media (max-width:760px) {
   .nav-desktop { display:none !important; }
   .nav-burger { display:inline-flex !important; }
