@@ -8,9 +8,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     </a>
     <nav class="nav-desktop" style="display:flex; align-items:center; gap:clamp(20px,3vw,44px); font-size:12px; letter-spacing:0.18em; text-transform:uppercase;">
       <a href="#journey" style="color:inherit; text-decoration:none; opacity:0.85;">Journey</a>
-      <a href="#products" style="color:inherit; text-decoration:none; opacity:0.85;">Disciplines</a>
       <a href="#products" style="color:inherit; text-decoration:none; opacity:0.85;">Brands</a>
-      <a href="/ovalla" style="color:inherit; text-decoration:none; opacity:0.85;">Ovalla</a>
       <a href="#global" style="color:inherit; text-decoration:none; opacity:0.85;">Global</a>
       <a href="#contact" class="magnetic-btn" style="display:inline-flex; align-items:center; color:inherit; text-decoration:none; border:1px solid currentColor; padding:9px 18px; border-radius:999px; opacity:0.95;"><span class="magnetic-btn-fill"></span><span class="magnetic-btn-label">Contact<span class="magnetic-btn-arrow" style="font-size:14px; line-height:1;">→</span></span></a>
     </nav>
@@ -30,9 +28,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     </div>
     <nav id="mnav-links" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:clamp(6px,1.4vh,14px); padding:0 clamp(28px,7vw,52px);">
       <a class="mnav-link" href="#journey" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Journey</a>
-      <a class="mnav-link" href="#products" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Disciplines</a>
       <a class="mnav-link" href="#products" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Brands</a>
-      <a class="mnav-link" href="/ovalla" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Ovalla</a>
       <a class="mnav-link" href="#global" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Global</a>
     </nav>
     <div style="padding:0 clamp(28px,7vw,52px) clamp(36px,7vh,56px);">
