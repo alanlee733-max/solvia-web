@@ -220,9 +220,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
         <nav style="display:flex; gap:clamp(32px,6vw,80px); font-size:13px; letter-spacing:0.08em;">
           <div style="display:flex; flex-direction:column; gap:14px;">
             <a href="#journey" style="color:inherit; text-decoration:none;">Journey</a>
-            <a href="#products" style="color:inherit; text-decoration:none;">Disciplines</a>
             <a href="#products" style="color:inherit; text-decoration:none;">Brands</a>
-            <a href="/ovalla" style="color:inherit; text-decoration:none;">Ovalla</a>
             <a href="#global" style="color:inherit; text-decoration:none;">Global</a>
             <a href="#contact" style="color:inherit; text-decoration:none;">Contact</a>
           </div>
