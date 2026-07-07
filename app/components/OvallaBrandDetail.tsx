@@ -57,7 +57,6 @@ const ritual = [
     vol: "130 ml · 4.39 fl. oz.",
     ppm: "CICA Fucocentella 10,000 ppm",
     tags: ["Calming", "Pore Refining"],
-    img: "/assets/ovalla/essenskin.webp",
     body: "Softens like a toner and moisturizes like a cream in one step — clearing final impurities and balancing pH so skin is ready for what follows.",
   },
   {
@@ -66,7 +65,6 @@ const ritual = [
     vol: "30 ml · 1.01 fl. oz.",
     ppm: "CICA Fucocentella 20,000 ppm",
     tags: ["Moisturizing", "Anti-aging"],
-    img: "/assets/ovalla/serum.webp",
     body: "Targets wrinkles, dryness and loss of firmness with a double dose of the Fucocentella essence, penetrating fast to rehydrate and recondition.",
   },
   {
@@ -75,7 +73,6 @@ const ritual = [
     vol: "50 ml · 1.69 fl. oz.",
     ppm: "CICA Fucocentella 10,000 ppm",
     tags: ["Hydrating", "Nourishing"],
-    img: "/assets/ovalla/cream.webp",
     body: "A lightweight, ultra-soft cream for naturally brightened, hydrated, restored skin — made to soothe dry and sensitive complexions.",
   },
 ];
@@ -275,8 +272,8 @@ export default function OvallaBrandDetail({
           }}
         >
           <img
-            src="/assets/ovalla/main.webp"
-            alt="ōvalla Fucocentella line — hero visual"
+            src="/assets/forest-light.webp"
+            alt="Light through a forest canopy — the ōvalla mood"
             style={{
               position: "absolute",
               inset: 0,
@@ -306,16 +303,18 @@ export default function OvallaBrandDetail({
             <p style={{ ...eyebrow, color: "#cdd8b4" }}>
               Premium Skin Care · KR · JP · US · SG
             </p>
-            <img
-              src="/assets/ovalla/logo.webp"
-              alt="ōvalla"
+            <h1
               style={{
-                display: "block",
-                width: "min(280px,56vw)",
-                margin: "22px 0 16px",
-                filter: "brightness(0) invert(1)",
+                fontFamily: garamond,
+                fontWeight: 600,
+                fontSize: "clamp(52px,8vw,96px)",
+                lineHeight: 1,
+                margin: "16px 0 14px",
+                letterSpacing: "0.03em",
               }}
-            />
+            >
+              ōvalla
+            </h1>
             <p
               style={{
                 fontFamily: garamond,
@@ -495,34 +494,21 @@ export default function OvallaBrandDetail({
               className="ov-ritual-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(3,1fr)",
+                gridTemplateColumns: "minmax(280px,420px) 1fr",
                 gap: 18,
+                alignItems: "start",
               }}
             >
+              <div style={{ ...cardBase }}>
+                <img
+                  src="/assets/ovalla/main.webp"
+                  alt="Fucocentella 3-step line — Essenskin, Multi Repair Serum, Intensive Cream"
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               {ritual.map((r) => (
-                <div key={r.step} className="ov-lineup-card" style={{ ...cardBase }}>
-                  <div
-                    style={{
-                      aspectRatio: "1 / 1",
-                      background: "#f6f3ec",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <img
-                      className="ov-card-img"
-                      src={r.img}
-                      alt={r.name}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                        padding: 18,
-                      }}
-                    />
-                  </div>
+                <div key={r.step} style={{ ...cardBase }}>
                   <div style={{ padding: "22px 22px 20px" }}>
                     <div
                       style={{
@@ -578,6 +564,7 @@ export default function OvallaBrandDetail({
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </section>
 
