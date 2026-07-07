@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import OvallaBrandDetail from "../components/OvallaBrandDetail";
 
-const TITLE = "ōvalla — Korean Skincare | Solvia Medical";
+const TITLE = "ōvalla — Sustainable Beauty | Solvia Medical";
 const DESCRIPTION =
-  "ōvalla is Solvia's Korean cosmetics house — quiet, botanical skincare formulas carried to partners in Korea, Japan, the United States and Singapore.";
+  "ōvalla is a Korean premium skincare brand built on the Fucocentella™ CICA care formula — sustainable beauty carried by Solvia to partners in Korea, Japan, the US and Singapore.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/assets/forest-light.webp",
-        alt: "ōvalla — light through a forest canopy",
+        url: "/assets/ovalla/main.webp",
+        alt: "ōvalla — Fucocentella line hero visual",
       },
     ],
   },
