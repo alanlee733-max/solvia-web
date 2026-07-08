@@ -96,9 +96,23 @@ export default function SolviaLandingEN() {
       });
     }
 
+    // scroll-direction signal for the reveal offset: rise up when scrolling
+    // down, descend when scrolling up
+    let lastRevY = window.scrollY || 0;
+    let revDir = "1";
+    document.documentElement.style.setProperty("--rev-dir", "1");
+
     // --- sticky header + hero parallax ----------------------------------
     const onScroll = () => {
       const y = window.scrollY || window.pageYOffset || 0;
+      if (y !== lastRevY) {
+        const nd = y > lastRevY ? "1" : "-1";
+        if (nd !== revDir) {
+          revDir = nd;
+          document.documentElement.style.setProperty("--rev-dir", nd);
+        }
+        lastRevY = y;
+      }
       const h = document.getElementById("dc-header");
       if (h) {
         const en = y > 48;
@@ -446,13 +460,12 @@ export default function SolviaLandingEN() {
     on(window, "resize", onResize);
     onScroll();
 
-    // --- scroll reveal ---------------------------------------------------
+    // --- scroll reveal (replays each pass; direction-aware) --------------
     const reveal = (el: Element) => {
       (el as HTMLElement).classList.add("is-revealed");
     };
     const els = document.querySelectorAll("[data-reveal]");
     let io: IntersectionObserver | undefined;
-    let revealFallback: number | undefined;
 
     if (!motion || !("IntersectionObserver" in window)) {
       els.forEach(reveal);
@@ -460,26 +473,23 @@ export default function SolviaLandingEN() {
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) {
-              reveal(e.target);
-              io!.unobserve(e.target);
+            if (e.intersectionRatio >= 0.2) {
+              e.target.classList.add("is-revealed");
+            } else if (!e.isIntersecting) {
+              // fully out of view — reset so the entrance replays next pass
+              e.target.classList.remove("is-revealed");
             }
           });
         },
-        { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+        { threshold: [0, 0.2] },
       );
       els.forEach((el) => io!.observe(el));
-      revealFallback = window.setTimeout(() => {
-        document.querySelectorAll("[data-reveal]").forEach((el) => {
-          if (getComputedStyle(el).opacity !== "1") reveal(el);
-        });
-      }, 1600);
     }
 
     return () => {
       cleanups.forEach((fn) => fn());
       if (io) io.disconnect();
-      if (revealFallback) clearTimeout(revealFallback);
+      document.documentElement.style.removeProperty("--rev-dir");
     };
   }, []);
 
