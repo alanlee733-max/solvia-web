@@ -21,6 +21,81 @@ export default function SolviaLandingEN() {
       cleanups.push(() => target.removeEventListener(type, fn, opts));
     };
 
+    // --- hero bloom fx (cursor light, petal lens, core glow, scroll bloom)
+    const heroSec = document.querySelector(".hero-sec") as HTMLElement | null;
+    const heroLens = document.querySelector("[data-lens]") as HTMLElement | null;
+    const heroCore = document.querySelector("[data-core]") as HTMLElement | null;
+    const heroLight = document.querySelector("[data-light]") as HTMLElement | null;
+    const heroContent = document.querySelector(
+      ".hero-content",
+    ) as HTMLElement | null;
+    const heroCue = document.querySelector(".hero-cue") as HTMLElement | null;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // filled ivory arrowhead cursor (no outline); hotspot at the tip.
+    const arrowFor = (hex: string) =>
+      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Cpath d='M2 2 L2 20 L7 15.2 L10.6 22.6 L13.6 21.1 L10 13.8 L17 13.8 Z' fill='%23" +
+      hex.replace("#", "") +
+      "'/%3E%3C/svg%3E\") 2 2, auto";
+    if (heroSec) {
+      const cur = arrowFor("#f4ecdd");
+      heroSec.style.cursor = cur;
+      heroSec.querySelectorAll<HTMLElement>("a, button").forEach((el) => {
+        el.style.cursor = cur;
+      });
+    }
+
+    // cursor-tracking light + localized petal-lift lens (skip on reduced motion)
+    if (heroSec && heroLight && heroLens && !reduceMotion) {
+      let lx = 50,
+        ly = 50,
+        tlx = 50,
+        tly = 50;
+      let lightRaf = 0;
+      const onHeroMove = (e: Event) => {
+        const ev = e as MouseEvent;
+        const r = heroSec.getBoundingClientRect();
+        tlx = ((ev.clientX - r.left) / r.width) * 100;
+        tly = ((ev.clientY - r.top) / r.height) * 100;
+        heroLight.style.opacity = "1";
+        heroLens.style.opacity = "1";
+      };
+      const onHeroLeave = () => {
+        heroLight.style.opacity = "0";
+        heroLens.style.opacity = "0";
+      };
+      on(heroSec, "mousemove", onHeroMove);
+      on(heroSec, "mouseleave", onHeroLeave);
+      const lightTick = () => {
+        lx += (tlx - lx) * 0.14;
+        ly += (tly - ly) * 0.14;
+        const x = lx.toFixed(1),
+          yv = ly.toFixed(1);
+        heroLight.style.background =
+          "radial-gradient(circle 11vw at " +
+          x +
+          "% " +
+          yv +
+          "%, rgba(255,240,205,0.40), transparent 46%)";
+        const m =
+          "radial-gradient(circle 20vmin at " +
+          x +
+          "% " +
+          yv +
+          "%, #000 0%, #000 26%, transparent 66%)";
+        heroLens.style.webkitMask = m;
+        heroLens.style.mask = m;
+        heroLens.style.transformOrigin = x + "% " + yv + "%";
+        lightRaf = requestAnimationFrame(lightTick);
+      };
+      lightRaf = requestAnimationFrame(lightTick);
+      cleanups.push(() => {
+        if (lightRaf) cancelAnimationFrame(lightRaf);
+      });
+    }
+
     // --- sticky header + hero parallax ----------------------------------
     const onScroll = () => {
       const y = window.scrollY || window.pageYOffset || 0;
@@ -38,12 +113,38 @@ export default function SolviaLandingEN() {
         h.style.paddingTop = en ? "16px" : "22px";
         h.style.paddingBottom = en ? "16px" : "22px";
       }
+      // scroll progress through the hero: 0 at top, 1 after one hero-height
+      let p = 0;
+      if (heroSec) {
+        const r = heroSec.getBoundingClientRect();
+        const hh = r.height || 1;
+        p = Math.min(Math.max(-r.top / hh, 0), 1);
+      }
+
       const hero = document.getElementById("dc-hero");
       if (hero) {
         const par = parallax ? y * 0.12 : 0;
+        // keep the existing zoom/parallax, add a p-based bloom zoom on top
         hero.style.transform =
-          "scale(" + heroZoom + ") translateY(" + par + "px)";
+          "scale(" + (heroZoom + p * 0.12) + ") translateY(" + par + "px)";
       }
+
+      // scroll bloom: core brightens, hero copy lifts & fades, cue fades
+      if (heroCore) {
+        heroCore.style.opacity = (0.9 + p * 0.1).toFixed(2);
+        heroCore.style.filter =
+          "brightness(" +
+          (1 + p * 0.5).toFixed(2) +
+          ") blur(" +
+          (p * 6).toFixed(1) +
+          "px)";
+      }
+      if (heroContent) {
+        heroContent.style.transform =
+          "translateY(" + (-p * 60).toFixed(0) + "px)";
+        heroContent.style.opacity = (1 - p * 1.15).toFixed(2);
+      }
+      if (heroCue) heroCue.style.opacity = (1 - p * 3).toFixed(2);
     };
 
     // --- mobile nav overlay ---------------------------------------------
@@ -96,6 +197,7 @@ export default function SolviaLandingEN() {
       lastPX: number;
       moved: number;
       suppress: boolean;
+      captured: boolean;
     }
 
     const bcGap = 20;
@@ -184,6 +286,7 @@ export default function SolviaLandingEN() {
           lastPX: 0,
           moved: 0,
           suppress: false,
+          captured: false,
         };
       });
 
@@ -217,16 +320,25 @@ export default function SolviaLandingEN() {
           row.startX = row.x;
           row.startPX = ev.clientX;
           row.lastPX = ev.clientX;
+          row.captured = false;
           t.classList.add("dragging");
-          try {
-            t.setPointerCapture(ev.pointerId);
-          } catch {}
+          // Pointer capture is deferred until a real drag begins (see
+          // pointermove). Capturing on pointerdown makes the browser retarget
+          // the subsequent click to the track, which swallowed card navigation.
         });
         on(t, "pointermove", (e) => {
           const ev = e as PointerEvent;
           if (row.dragging) {
             const dx = ev.clientX - row.startPX;
             row.moved = Math.max(row.moved, Math.abs(dx));
+            // once it's a genuine drag, capture the pointer so it keeps
+            // tracking even if the cursor leaves the track
+            if (!row.captured && row.moved > 6) {
+              try {
+                t.setPointerCapture(ev.pointerId);
+                row.captured = true;
+              } catch {}
+            }
             row.x = row.startX + dx;
             row.vx = ev.clientX - row.lastPX;
             row.lastPX = ev.clientX;
@@ -258,9 +370,12 @@ export default function SolviaLandingEN() {
             window.setTimeout(() => {
               row.suppress = false;
             }, 60);
-          try {
-            t.releasePointerCapture((e as PointerEvent).pointerId);
-          } catch {}
+          if (row.captured) {
+            try {
+              t.releasePointerCapture((e as PointerEvent).pointerId);
+            } catch {}
+            row.captured = false;
+          }
         };
         on(t, "pointerup", end);
         on(t, "pointercancel", end);
@@ -333,9 +448,7 @@ export default function SolviaLandingEN() {
 
     // --- scroll reveal ---------------------------------------------------
     const reveal = (el: Element) => {
-      const h = el as HTMLElement;
-      h.style.opacity = "1";
-      h.style.transform = "none";
+      (el as HTMLElement).classList.add("is-revealed");
     };
     const els = document.querySelectorAll("[data-reveal]");
     let io: IntersectionObserver | undefined;
