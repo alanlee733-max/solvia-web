@@ -4,6 +4,20 @@ html { scroll-behavior: smooth; }
 body { margin: 0; }
 ::selection { background: rgba(192,138,46,0.25); }
 
+/* gentle section snapping (desktop) — nudges the scroll to align near a
+   section boundary without hijacking; proximity never traps tall sections */
+@media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
+  html { scroll-snap-type: y proximity; }
+  .hero-sec,
+  #products,
+  #journey,
+  #global,
+  #contact {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+}
+
 @keyframes drift { 0% { transform: translate(0,0); opacity:0; } 20% { opacity:0.9; } 100% { transform: translate(14px,-90px); opacity:0; } }
 @keyframes cue { 0%,100% { transform: translateY(0); opacity:0.35; } 50% { transform: translateY(8px); opacity:1; } }
 @keyframes glow { 0%,100% { opacity:0.55; } 50% { opacity:0.85; } }
