@@ -115,6 +115,10 @@ body { margin: 0; }
 .bc-card:hover { box-shadow:0 30px 60px -28px rgba(0,0,0,.6), inset 0 0 0 2px rgba(230,182,82,0.65); }
 .bc-card .bc-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1s cubic-bezier(.2,.7,.2,1); pointer-events:none; }
 .bc-card:hover .bc-img { transform:scale(1.07); }
+/* brand cards without a destination page: not clickable, drop the link affordance */
+.bc-card:not([href]) { cursor:grab; }
+.bc-card:not([href])::after { content:none; }
+.bc-card:not([href]):hover { box-shadow:0 30px 60px -30px rgba(0,0,0,.6); }
 .bc-cell { position:relative; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:24px; }
 
 /* magnetic contact button (lift + gold fill on hover) */
