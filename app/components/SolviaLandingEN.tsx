@@ -197,6 +197,7 @@ export default function SolviaLandingEN() {
       lastPX: number;
       moved: number;
       suppress: boolean;
+      captured: boolean;
     }
 
     const bcGap = 20;
@@ -285,6 +286,7 @@ export default function SolviaLandingEN() {
           lastPX: 0,
           moved: 0,
           suppress: false,
+          captured: false,
         };
       });
 
@@ -318,16 +320,25 @@ export default function SolviaLandingEN() {
           row.startX = row.x;
           row.startPX = ev.clientX;
           row.lastPX = ev.clientX;
+          row.captured = false;
           t.classList.add("dragging");
-          try {
-            t.setPointerCapture(ev.pointerId);
-          } catch {}
+          // Pointer capture is deferred until a real drag begins (see
+          // pointermove). Capturing on pointerdown makes the browser retarget
+          // the subsequent click to the track, which swallowed card navigation.
         });
         on(t, "pointermove", (e) => {
           const ev = e as PointerEvent;
           if (row.dragging) {
             const dx = ev.clientX - row.startPX;
             row.moved = Math.max(row.moved, Math.abs(dx));
+            // once it's a genuine drag, capture the pointer so it keeps
+            // tracking even if the cursor leaves the track
+            if (!row.captured && row.moved > 6) {
+              try {
+                t.setPointerCapture(ev.pointerId);
+                row.captured = true;
+              } catch {}
+            }
             row.x = row.startX + dx;
             row.vx = ev.clientX - row.lastPX;
             row.lastPX = ev.clientX;
@@ -359,9 +370,12 @@ export default function SolviaLandingEN() {
             window.setTimeout(() => {
               row.suppress = false;
             }, 60);
-          try {
-            t.releasePointerCapture((e as PointerEvent).pointerId);
-          } catch {}
+          if (row.captured) {
+            try {
+              t.releasePointerCapture((e as PointerEvent).pointerId);
+            } catch {}
+            row.captured = false;
+          }
         };
         on(t, "pointerup", end);
         on(t, "pointercancel", end);
@@ -434,9 +448,7 @@ export default function SolviaLandingEN() {
 
     // --- scroll reveal ---------------------------------------------------
     const reveal = (el: Element) => {
-      const h = el as HTMLElement;
-      h.style.opacity = "1";
-      h.style.transform = "none";
+      (el as HTMLElement).classList.add("is-revealed");
     };
     const els = document.querySelectorAll("[data-reveal]");
     let io: IntersectionObserver | undefined;

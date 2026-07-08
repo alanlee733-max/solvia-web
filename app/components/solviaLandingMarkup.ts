@@ -79,7 +79,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     <!-- BRANDS -->
     <section id="products" style="position:relative; overflow:hidden; background:#f6ece4; padding:clamp(90px,14vh,180px) clamp(24px,5vw,72px);">
       <div aria-hidden="true" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:0; pointer-events:none; user-select:none; font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(200px,29vw,560px); line-height:0.8; letter-spacing:0.01em; color:rgba(58,43,40,0.055); white-space:nowrap;">SOLVIA</div>
-      <div data-reveal style="position:relative; z-index:1; opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); max-width:1520px; margin:0 auto;">
+      <div data-reveal="up" style="position:relative; z-index:1; max-width:1520px; margin:0 auto;">
         <section style="position:relative; background:#3a2b28; border-radius:clamp(28px,3vw,44px); padding:clamp(40px,5.5vw,80px) clamp(24px,4vw,60px) clamp(44px,5.5vw,72px); overflow:hidden;">
           <div style="position:absolute; top:38%; left:50%; width:680px; height:680px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle, rgba(230,182,82,0.12), transparent 66%); pointer-events:none;"></div>
           <div style="position:relative; text-align:center; margin-bottom:clamp(30px,4.5vw,48px);">
@@ -131,12 +131,12 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     <section id="journey" style="background:#3a2b28; color:#f4ecdd; padding:clamp(90px,14vh,170px) clamp(24px,5vw,72px);">
       <div style="max-width:1180px; margin:0 auto;">
 
-        <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(40px,5vw,64px); align-items:center; margin-bottom:clamp(56px,9vh,88px);">
-          <div style="position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(40px,5vw,64px); align-items:center; margin-bottom:clamp(56px,9vh,88px);">
+          <div data-reveal="left" style="position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden;">
             <img src="/assets/forest-light.webp" alt="Sunlight through a forest path" style="width:100%; height:100%; object-fit:cover;">
             <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(33,27,19,0.15), rgba(33,27,19,0.5));"></div>
           </div>
-          <div>
+          <div data-reveal="right">
             <div style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(22px,3vh,30px);">
               <span style="width:32px; height:1px; background:var(--accent-soft,#e6b652);"></span>
               <span style="font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent-soft,#e6b652);">The Name · The Journey</span>
@@ -147,7 +147,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
         </div>
 
         <!-- horizontal connector + 3 steps -->
-        <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); position:relative;">
+        <div data-reveal="fade" style="position:relative;">
           <div style="position:relative; height:0;">
             <div style="position:absolute; left:16.66%; right:16.66%; top:0; height:1px; background:linear-gradient(90deg, rgba(230,182,82,0) 0%, rgba(230,182,82,0.55) 12%, rgba(230,182,82,0.55) 88%, rgba(230,182,82,0) 100%);"></div>
             <div style="position:absolute; left:16.66%; top:0; width:10px; height:10px; border-radius:50%; background:var(--accent-soft,#e6b652); transform:translate(-50%,-50%); box-shadow:0 0 0 4px #3a2b28;"></div>
@@ -155,19 +155,19 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
             <div style="position:absolute; left:83.33%; top:0; width:10px; height:10px; border-radius:50%; background:var(--accent-soft,#e6b652); transform:translate(-50%,-50%); box-shadow:0 0 0 4px #3a2b28;"></div>
           </div>
           <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:clamp(28px,4vw,48px); padding-top:clamp(36px,5vh,48px); text-align:center;">
-            <article style="padding:0 clamp(8px,1.5vw,20px);">
+            <article data-stagger style="--i:0; padding:0 clamp(8px,1.5vw,20px);">
               <span style="font-family:'Cormorant Garamond',serif; font-size:clamp(40px,4vw,48px); line-height:0.9; color:var(--accent-soft,#e6b652);">01</span>
               <h3 style="font-family:'Nanum Myeongjo',serif; font-weight:700; font-size:clamp(20px,2vw,24px); margin:16px 0 4px; color:#fffdf9;">Origin</h3>
               <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(244,236,221,0.5); margin-bottom:14px;">the source</div>
               <p style="font-size:14px; line-height:1.75; margin:0; color:rgba(244,236,221,0.72); font-weight:300;">Only clinically proven products anchor a firm starting point.</p>
             </article>
-            <article style="padding:0 clamp(8px,1.5vw,20px);">
+            <article data-stagger style="--i:1; padding:0 clamp(8px,1.5vw,20px);">
               <span style="font-family:'Cormorant Garamond',serif; font-size:clamp(40px,4vw,48px); line-height:0.9; color:var(--accent-soft,#e6b652);">02</span>
               <h3 style="font-family:'Nanum Myeongjo',serif; font-weight:700; font-size:clamp(20px,2vw,24px); margin:16px 0 4px; color:#fffdf9;">Passage</h3>
               <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(244,236,221,0.5); margin-bottom:14px;">the way</div>
               <p style="font-size:14px; line-height:1.75; margin:0; color:rgba(244,236,221,0.72); font-weight:300;">A fast, transparent supply chain linking Korea to clinics worldwide.</p>
             </article>
-            <article style="padding:0 clamp(8px,1.5vw,20px);">
+            <article data-stagger style="--i:2; padding:0 clamp(8px,1.5vw,20px);">
               <span style="font-family:'Cormorant Garamond',serif; font-size:clamp(40px,4vw,48px); line-height:0.9; color:var(--accent-soft,#e6b652);">03</span>
               <h3 style="font-family:'Nanum Myeongjo',serif; font-weight:700; font-size:clamp(20px,2vw,24px); margin:16px 0 4px; color:#fffdf9;">Arrival</h3>
               <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(244,236,221,0.5); margin-bottom:14px;">the touch</div>
@@ -183,16 +183,16 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     <section id="global" style="position:relative; background:#3a2b28; color:#f4e9e2; padding:clamp(90px,14vh,180px) clamp(24px,5vw,72px); overflow:hidden;">
       <div style="position:absolute; top:-10%; right:-5%; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(230,182,82,0.22), transparent 68%); filter:blur(10px); animation:glow 7s ease-in-out infinite;"></div>
       <div style="position:relative; max-width:1100px; margin:0 auto;">
-        <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1);">
+        <div data-reveal="left">
           <span style="font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent-soft,#e6b652);">Export-First Distribution</span>
           <h2 style="font-family:'Nanum Myeongjo',serif; font-weight:700; font-size:clamp(34px,5vw,60px); margin:20px 0 0; line-height:1.12; max-width:760px;">Born for export. Trusted at home.</h2>
         </div>
-        <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1) .1s, transform 1.1s cubic-bezier(.2,.7,.2,1) .1s; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(28px,4vw,56px); margin-top:clamp(48px,8vh,80px); border-top:1px solid rgba(238,240,228,0.16); padding-top:48px;">
-          <div>
+        <div data-reveal="fade" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(28px,4vw,56px); margin-top:clamp(48px,8vh,80px); border-top:1px solid rgba(238,240,228,0.16); padding-top:48px;">
+          <div data-stagger style="--i:0">
             <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:30px; margin:0 0 14px; color:var(--accent-soft,#e6b652);">Export — Worldwide</h3>
             <p style="font-size:15px; line-height:1.9; color:rgba(238,240,228,0.82); font-weight:300; margin:0;">Export distribution built for international partners. From certification and logistics to local regulatory compliance, we open the path across borders.</p>
           </div>
-          <div>
+          <div data-stagger style="--i:1">
             <h3 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:30px; margin:0 0 14px; color:var(--accent-soft,#e6b652);">Domestic — Korea</h3>
             <p style="font-size:15px; line-height:1.9; color:rgba(238,240,228,0.82); font-weight:300; margin:0;">Direct, rapid supply to clinics, medi-spas, and channels at home — backed by authenticity guarantees and stable inventory.</p>
           </div>
@@ -202,11 +202,11 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
 
     <!-- CTA -->
     <section id="contact" style="background:#f6ece4; padding:clamp(100px,16vh,200px) clamp(24px,5vw,72px); text-align:center;">
-      <div data-reveal style="opacity:0; transform:translateY(28px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); max-width:820px; margin:0 auto;">
-        <span style="font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent,#c08a2e);">Partner With Solvia</span>
-        <h2 style="font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(36px,6vw,72px); line-height:1.1; margin:24px 0 0; color:#221d16;">Looking for partners<br>to carry the light</h2>
-        <p style="font-size:clamp(15px,1.4vw,18px); line-height:1.8; color:#4a4136; font-weight:300; max-width:520px; margin:26px auto 0;">We welcome distribution, retail, and export-partnership inquiries. Join the Solvia journey.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:40px;">
+      <div data-reveal="fade" style="max-width:820px; margin:0 auto;">
+        <span data-stagger style="--i:0; font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent,#c08a2e);">Partner With Solvia</span>
+        <h2 data-stagger style="--i:1; font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(36px,6vw,72px); line-height:1.1; margin:24px 0 0; color:#221d16;">Looking for partners<br>to carry the light</h2>
+        <p data-stagger style="--i:2; font-size:clamp(15px,1.4vw,18px); line-height:1.8; color:#4a4136; font-weight:300; max-width:520px; margin:26px auto 0;">We welcome distribution, retail, and export-partnership inquiries. Join the Solvia journey.</p>
+        <div data-stagger style="--i:3; display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:40px;">
           <a href="mailto:partners@solviamedical.com" style="display:inline-flex; align-items:center; gap:10px; background:#221d16; color:#f6ece4; text-decoration:none; padding:16px 32px; border-radius:999px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:500;">Partner Inquiry <span style="font-size:15px;">→</span></a>
           <a href="mailto:partners@solviamedical.com" style="display:inline-flex; align-items:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:#4a4136; text-decoration:none; padding:16px 8px;">partners@solviamedical.com</a>
         </div>
