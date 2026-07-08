@@ -44,6 +44,12 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
         <source media="(max-width:760px)" srcset="/assets/hero-bloom-mobile.webp">
         <img src="/assets/hero-bloom.webp" alt="" style="width:100%; height:100%; object-fit:cover;">
       </picture>
+      <!-- petal-lift lens: a brightened copy of the hero, revealed only around the cursor -->
+      <div data-lens style="position:absolute; inset:0; background:url('/assets/hero-bloom.webp') center/cover no-repeat; transform-origin:50% 50%; transform:scale(1.07); filter:brightness(1.1) contrast(1.03) drop-shadow(0 10px 22px rgba(40,20,0,0.28)); -webkit-mask:radial-gradient(circle 20vmin at 50% 50%, #000 0%, #000 26%, transparent 66%); mask:radial-gradient(circle 20vmin at 50% 50%, #000 0%, #000 26%, transparent 66%); opacity:0; transition:opacity .45s ease; pointer-events:none; will-change:mask,transform;"></div>
+      <!-- pulsing radiant core, sits over the orb in the image -->
+      <div data-core class="hero-core" style="position:absolute; left:41%; top:57%; width:38vw; height:38vw; border-radius:50%; background:radial-gradient(circle, rgba(255,214,140,0.55), rgba(255,196,110,0.12) 46%, transparent 68%); mix-blend-mode:screen; pointer-events:none; will-change:transform,opacity;"></div>
+      <!-- cursor-tracking light -->
+      <div data-light style="position:absolute; inset:0; background:radial-gradient(circle 11vw at 50% 50%, rgba(255,240,205,0.34), transparent 46%); mix-blend-mode:soft-light; pointer-events:none; transition:opacity .5s ease; opacity:0; will-change:background;"></div>
       <div class="hero-grad" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(46,26,22,0.40) 0%, rgba(46,26,22,0.04) 22%, transparent 50%, rgba(50,24,20,0.46) 74%, rgba(46,22,18,0.86) 100%);"></div>
       <div style="position:absolute; inset:0; background:#3a1e18; opacity:var(--hero-dark,0.06); mix-blend-mode:multiply;"></div>
       <span class="hero-orb" style="position:absolute; left:22%; top:38%; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(230,182,82,0.5), transparent 70%); filter:blur(8px); animation:drift 9s ease-in-out infinite;"></span>
