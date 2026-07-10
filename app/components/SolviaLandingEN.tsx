@@ -247,13 +247,19 @@ export default function SolviaLandingEN() {
       }
     }
 
-    // --- contact form (submit stub — backend wired after Apps Script) ----
+    // --- contact form: POST to /api/contact -----------------------------
     const cform = document.getElementById("contact-form") as HTMLFormElement | null;
     if (cform) {
       const status = document.getElementById("cf-status");
       const btn = cform.querySelector(".cf-submit") as HTMLButtonElement | null;
       const btnLabel = 'Send inquiry <span aria-hidden="true">→</span>';
-      on(cform, "submit", (e) => {
+      const setStatus = (msg: string, ok: boolean) => {
+        if (status) {
+          status.textContent = msg;
+          status.className = "cf-status " + (ok ? "ok" : "err");
+        }
+      };
+      on(cform, "submit", async (e) => {
         e.preventDefault();
         const hp = cform.querySelector(".cf-hp") as HTMLInputElement | null;
         if (hp && hp.value) return; // honeypot: silently drop bots
@@ -265,18 +271,39 @@ export default function SolviaLandingEN() {
           btn.disabled = true;
           btn.textContent = "Sending…";
         }
-        // TODO: POST new FormData(cform) to /api/contact once the endpoint is live
-        window.setTimeout(() => {
-          if (status) {
-            status.textContent = "Thank you — we'll be in touch shortly.";
-            status.className = "cf-status ok";
+        const payload: Record<string, string> = {};
+        new FormData(cform).forEach((v, k) => {
+          payload[k] = typeof v === "string" ? v : "";
+        });
+        try {
+          const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = (await res.json().catch(() => ({ ok: false }))) as {
+            ok?: boolean;
+          };
+          if (res.ok && data.ok) {
+            setStatus("Thank you — we'll be in touch shortly.", true);
+            cform.reset();
+          } else {
+            setStatus(
+              "Something went wrong. Please email partners@solviamedical.com.",
+              false,
+            );
           }
-          cform.reset();
+        } catch {
+          setStatus(
+            "Network error. Please email partners@solviamedical.com.",
+            false,
+          );
+        } finally {
           if (btn) {
             btn.disabled = false;
             btn.innerHTML = btnLabel;
           }
-        }, 700);
+        }
       });
     }
 
