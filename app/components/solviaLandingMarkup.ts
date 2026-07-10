@@ -218,15 +218,59 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     </section>
 
     <!-- CTA -->
-    <section id="contact" style="background:#f6ece4; padding:clamp(100px,16vh,200px) clamp(24px,5vw,72px); text-align:center;">
-      <div data-reveal="fade" style="max-width:820px; margin:0 auto;">
-        <span data-stagger style="--i:0; font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent,#c08a2e);">Partner With Solvia</span>
-        <h2 data-stagger style="--i:1; font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(36px,6vw,72px); line-height:1.1; margin:24px 0 0; color:#221d16;">Looking for partners<br>to carry the light</h2>
-        <p data-stagger style="--i:2; font-size:clamp(15px,1.4vw,18px); line-height:1.8; color:#4a4136; font-weight:300; max-width:520px; margin:26px auto 0;">We welcome distribution, retail, and export-partnership inquiries. Join the Solvia journey.</p>
-        <div data-stagger style="--i:3; display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:40px;">
-          <a href="mailto:partners@solviamedical.com" style="display:inline-flex; align-items:center; gap:10px; background:#221d16; color:#f6ece4; text-decoration:none; padding:16px 32px; border-radius:999px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:500;">Partner Inquiry <span style="font-size:15px;">→</span></a>
-          <a href="mailto:partners@solviamedical.com" style="display:inline-flex; align-items:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:20px; color:#4a4136; text-decoration:none; padding:16px 8px;">partners@solviamedical.com</a>
+    <section id="contact" style="background:#f6ece4; padding:clamp(90px,14vh,170px) clamp(24px,5vw,72px);">
+      <div class="contact-grid" data-reveal="fade" style="max-width:1180px; margin:0 auto;">
+        <div class="contact-pitch">
+          <span data-stagger style="--i:0; font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent,#c08a2e);">Partner With Solvia</span>
+          <h2 data-stagger style="--i:1; font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(34px,5vw,60px); line-height:1.1; margin:22px 0 0; color:#221d16;">Looking for partners<br>to carry the light</h2>
+          <p data-stagger style="--i:2; font-size:clamp(15px,1.4vw,18px); line-height:1.8; color:#4a4136; font-weight:300; max-width:440px; margin:24px 0 0;">We welcome distribution, retail, and export-partnership inquiries. Leave your details and our team will reach out.</p>
+          <div class="cf-directs" data-stagger style="--i:3;">
+            <a href="mailto:partners@solviamedical.com" class="cf-direct"><span class="cf-direct-label">Email</span>partners@solviamedical.com</a>
+            <a href="https://wa.me/821029323001" target="_blank" rel="noopener" class="cf-direct"><span class="cf-direct-label">WhatsApp</span>+82 10 2932 3001</a>
+          </div>
         </div>
+
+        <form class="cf-form" id="contact-form" data-stagger style="--i:2" novalidate>
+          <div class="cf-row">
+            <div class="cf-field">
+              <label class="cf-label" for="cf-name">Name <span class="cf-req">*</span></label>
+              <input class="cf-input" id="cf-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="cf-company">Company <span class="cf-req">*</span></label>
+              <input class="cf-input" id="cf-company" name="company" type="text" autocomplete="organization" required>
+            </div>
+          </div>
+          <div class="cf-row">
+            <div class="cf-field">
+              <label class="cf-label" for="cf-email">Email <span class="cf-req">*</span></label>
+              <input class="cf-input" id="cf-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="cf-phone">Phone</label>
+              <input class="cf-input" id="cf-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="cf-type">Inquiry type</label>
+            <select class="cf-select" id="cf-type" name="type">
+              <option>Distribution</option>
+              <option>Retail</option>
+              <option>Export</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="cf-message">Message <span class="cf-req">*</span></label>
+            <textarea class="cf-textarea" id="cf-message" name="message" rows="3" placeholder="Tell us about your market and interest." required></textarea>
+          </div>
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="cf-hp">
+          <label class="cf-consent"><input type="checkbox" id="cf-consent" name="consent" required><span>I agree to Solvia's <a href="#">privacy policy</a>.</span></label>
+          <div class="cf-actions">
+            <button class="cf-submit" type="submit">Send inquiry <span aria-hidden="true">→</span></button>
+            <p class="cf-status" id="cf-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
       </div>
     </section>
 

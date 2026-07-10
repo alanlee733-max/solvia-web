@@ -247,6 +247,39 @@ export default function SolviaLandingEN() {
       }
     }
 
+    // --- contact form (submit stub — backend wired after Apps Script) ----
+    const cform = document.getElementById("contact-form") as HTMLFormElement | null;
+    if (cform) {
+      const status = document.getElementById("cf-status");
+      const btn = cform.querySelector(".cf-submit") as HTMLButtonElement | null;
+      const btnLabel = 'Send inquiry <span aria-hidden="true">→</span>';
+      on(cform, "submit", (e) => {
+        e.preventDefault();
+        const hp = cform.querySelector(".cf-hp") as HTMLInputElement | null;
+        if (hp && hp.value) return; // honeypot: silently drop bots
+        if (!cform.checkValidity()) {
+          cform.reportValidity();
+          return;
+        }
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Sending…";
+        }
+        // TODO: POST new FormData(cform) to /api/contact once the endpoint is live
+        window.setTimeout(() => {
+          if (status) {
+            status.textContent = "Thank you — we'll be in touch shortly.";
+            status.className = "cf-status ok";
+          }
+          cform.reset();
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = btnLabel;
+          }
+        }, 700);
+      });
+    }
+
     // --- brand carousel (drifting two-row marquee) -----------------------
     const bcRoot = document.querySelector(
       "[data-bcarousel]",
