@@ -161,31 +161,91 @@ export default function SolviaLandingEN() {
       if (heroCue) heroCue.style.opacity = (1 - p * 3).toFixed(2);
     };
 
-    // --- mobile nav overlay ---------------------------------------------
-    const openMnav = () => {
-      const o = document.getElementById("mnav-overlay");
-      if (o) {
-        o.classList.add("open");
-        document.body.style.overflow = "hidden";
-      }
-    };
+    // --- mobile nav dropdown --------------------------------------------
     const closeMnav = () => {
-      const o = document.getElementById("mnav-overlay");
-      if (o) {
-        o.classList.remove("open");
-        document.body.style.overflow = "";
-      }
+      document.getElementById("mnav-overlay")?.classList.remove("open");
     };
 
     const burger = document.getElementById("nav-burger");
-    if (burger) on(burger, "click", openMnav);
-
-    const mnavClose = document.getElementById("mnav-close");
-    if (mnavClose) on(mnavClose, "click", closeMnav);
+    if (burger)
+      on(burger, "click", (e) => {
+        e.stopPropagation();
+        document.getElementById("mnav-overlay")?.classList.toggle("open");
+      });
 
     document
       .querySelectorAll("#mnav-links a, #mnav-contact")
       .forEach((a) => on(a, "click", closeMnav));
+
+    // close when tapping outside the open dropdown
+    on(document, "click", (e) => {
+      const o = document.getElementById("mnav-overlay");
+      if (!o || !o.classList.contains("open")) return;
+      const target = e.target as Node;
+      if (o.contains(target) || burger?.contains(target)) return;
+      closeMnav();
+    });
+
+    // --- desktop glass dock: cursor magnify + brands dropdown -----------
+    const dock = document.getElementById("dc-dock");
+    if (dock) {
+      const dockItems = Array.from(
+        dock.querySelectorAll(".dc-dock-item"),
+      ) as HTMLElement[];
+      const canHover = window.matchMedia(
+        "(hover: hover) and (pointer: fine)",
+      ).matches;
+      const reduce = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const DOCK_DIST = 130;
+      const DOCK_MAX = 0.26;
+      if (canHover && !reduce) {
+        on(dock, "mousemove", (e) => {
+          const ev = e as MouseEvent;
+          dockItems.forEach((it) => {
+            const r = it.getBoundingClientRect();
+            const c = r.left + r.width / 2;
+            const d = Math.abs(ev.clientX - c);
+            const p = d >= DOCK_DIST ? 0 : 1 - d / DOCK_DIST;
+            it.style.transform =
+              "scale(" +
+              (1 + DOCK_MAX * p).toFixed(3) +
+              ") translateY(" +
+              (-6 * p).toFixed(2) +
+              "px)";
+          });
+        });
+        on(dock, "mouseleave", () => {
+          dockItems.forEach((it) => {
+            it.style.transform = "";
+          });
+        });
+      }
+
+      const brandsBtn = document.getElementById("dc-dock-brands");
+      const dockPanel = document.getElementById("dc-dock-panel");
+      if (brandsBtn && dockPanel) {
+        const closeDock = () => {
+          dockPanel.classList.remove("open");
+          brandsBtn.setAttribute("aria-expanded", "false");
+        };
+        on(brandsBtn, "click", (e) => {
+          e.stopPropagation();
+          const willOpen = !dockPanel.classList.contains("open");
+          dockPanel.classList.toggle("open", willOpen);
+          brandsBtn.setAttribute("aria-expanded", String(willOpen));
+        });
+        dockPanel
+          .querySelectorAll("a")
+          .forEach((a) => on(a, "click", closeDock));
+        on(document, "click", (e) => {
+          if (!dockPanel.classList.contains("open")) return;
+          if (dock.contains(e.target as Node)) return;
+          closeDock();
+        });
+      }
+    }
 
     // --- brand carousel (drifting two-row marquee) -----------------------
     const bcRoot = document.querySelector(

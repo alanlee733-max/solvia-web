@@ -17,22 +17,31 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     </button>
   </header>
 
-  <!-- MOBILE NAV OVERLAY -->
-  <div id="mnav-overlay" class="mnav-overlay" style="position:fixed; inset:0; z-index:60; background:#2e211c; color:#f4ecdd; display:flex; flex-direction:column;">
-    <div style="display:flex; align-items:center; justify-content:space-between; padding:22px clamp(24px,5vw,40px);">
-      <span style="display:flex; align-items:baseline; gap:9px; color:#fffdf9;">
-        <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:24px; letter-spacing:0.32em; padding-left:0.32em;">SOLVIA</span>
-        <span style="width:5px; height:5px; border-radius:50%; background:var(--accent-soft,#e6b652); align-self:center; transform:translateY(-2px);"></span>
-      </span>
-      <button type="button" id="mnav-close" aria-label="Close menu" style="background:none; border:0; color:inherit; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-family:'Jost',sans-serif; font-size:30px; line-height:1; font-weight:300;">×</button>
+  <!-- DESKTOP GLASS DOCK -->
+  <nav id="dc-dock" class="dc-dock" aria-label="Primary">
+    <a href="#top" class="dc-dock-brand"><span class="dc-dock-name">SOLVIA</span><span class="dc-dock-dot" aria-hidden="true"></span></a>
+    <span class="dc-dock-sep" aria-hidden="true"></span>
+    <a href="#journey" class="dc-dock-item">Journey</a>
+    <button type="button" class="dc-dock-item" id="dc-dock-brands" aria-haspopup="true" aria-expanded="false">Brands</button>
+    <a href="#global" class="dc-dock-item">Global</a>
+    <a href="#contact" class="dc-dock-item dc-dock-contact">Contact</a>
+    <div class="dc-dock-panel" id="dc-dock-panel" role="menu" aria-label="Brands">
+      <a href="/ovalla" role="menuitem">Ovalla<span>Cosmetics</span></a>
+      <a href="/coreslim" role="menuitem">CoreSlim<span>Device</span></a>
+      <a href="#products" role="menuitem" class="dc-dock-all">All brands →</a>
     </div>
-    <nav id="mnav-links" style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:clamp(6px,1.4vh,14px); padding:0 clamp(28px,7vw,52px);">
-      <a class="mnav-link" href="#journey" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Journey</a>
-      <a class="mnav-link" href="#products" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Brands</a>
-      <a class="mnav-link" href="#global" style="font-family:'Nanum Myeongjo',serif; font-weight:400; font-size:clamp(34px,9vw,52px); color:#fffdf9; text-decoration:none; line-height:1.18;">Global</a>
+  </nav>
+
+  <!-- MOBILE NAV DROPDOWN -->
+  <div id="mnav-overlay" class="mnav-overlay">
+    <span class="mnav-caret" aria-hidden="true"></span>
+    <nav id="mnav-links">
+      <a class="mnav-link" href="#journey">Journey</a>
+      <a class="mnav-link" href="#products">Brands</a>
+      <a class="mnav-link" href="#global">Global</a>
     </nav>
-    <div style="padding:0 clamp(28px,7vw,52px) clamp(36px,7vh,56px);">
-      <a href="#contact" id="mnav-contact" style="display:flex; align-items:center; justify-content:center; gap:10px; background:var(--accent,#c08a2e); color:#1c1408; text-decoration:none; padding:18px 28px; border-radius:999px; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; font-weight:500;">Contact<span style="font-size:15px; line-height:1;">→</span></a>
+    <div class="mnav-cta-wrap">
+      <a href="#contact" id="mnav-contact">Contact<span aria-hidden="true" style="font-size:14px; line-height:1;">→</span></a>
     </div>
   </div>
 
