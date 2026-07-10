@@ -70,9 +70,17 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
         </div>
       </div>
 
-      <div class="hero-cue" style="position:absolute; left:clamp(24px,5vw,72px); bottom:30px; z-index:3; display:flex; flex-direction:column; align-items:center; gap:8px; color:rgba(255,253,249,0.7);">
-        <span style="font-size:10px; letter-spacing:0.3em; writing-mode:vertical-rl; text-transform:uppercase;">Scroll</span>
-        <span style="width:1px; height:40px; background:linear-gradient(rgba(255,253,249,0.7), transparent); animation:cue 2.2s ease-in-out infinite;"></span>
+      <div class="hero-cue" style="position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:3; width:78px; height:78px;">
+        <svg viewBox="0 0 100 100" width="78" height="78" aria-hidden="true" style="display:block; overflow:visible;">
+          <defs><path id="dc-cue-ring" d="M50,50 m-33,0 a33,33 0 1,1 66,0 a33,33 0 1,1 -66,0" fill="none"></path></defs>
+          <g>
+            <text font-size="8" letter-spacing="1.3" font-weight="500" fill="#e6b652" font-family="'Cormorant Garamond',serif"><textPath href="#dc-cue-ring" startOffset="0">SCROLL TO EXPLORE · SOLVIA MEDICAL · </textPath></text>
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="16s" repeatCount="indefinite"></animateTransform>
+          </g>
+          <polyline points="42,45 50,54 58,45" fill="none" stroke="#fffdf9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <animateTransform attributeName="transform" type="translate" values="0 -1; 0 4; 0 -1" keyTimes="0;0.5;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1" dur="1.9s" repeatCount="indefinite"></animateTransform>
+          </polyline>
+        </svg>
       </div>
     </section>
 
