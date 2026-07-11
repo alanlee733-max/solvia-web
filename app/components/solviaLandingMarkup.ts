@@ -48,7 +48,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
   <main id="top">
 
     <!-- HERO -->
-    <section class="hero-sec" data-vpos="bottom" data-halign="left" data-orbs="on" data-cue="on" style="position:relative; height:100vh; min-height:640px; overflow:hidden; display:flex; align-items:flex-end;">
+    <section class="hero-sec" data-vpos="center" data-halign="center" data-orbs="on" data-cue="on" style="position:relative; height:100vh; min-height:640px; overflow:hidden; display:flex;">
       <picture id="dc-hero" style="position:absolute; inset:0; width:100%; height:100%; transform:scale(1.08); will-change:transform;">
         <source media="(max-width:760px)" srcset="/assets/hero-bloom-mobile.webp">
         <img src="/assets/hero-bloom.webp" alt="" style="width:100%; height:100%; object-fit:cover;">
@@ -61,18 +61,19 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
       <div data-light style="position:absolute; inset:0; background:radial-gradient(circle 11vw at 50% 50%, rgba(255,240,205,0.34), transparent 46%); mix-blend-mode:soft-light; pointer-events:none; transition:opacity .5s ease; opacity:0; will-change:background;"></div>
       <div class="hero-grad" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(46,26,22,0.40) 0%, rgba(46,26,22,0.04) 22%, transparent 50%, rgba(50,24,20,0.46) 74%, rgba(46,22,18,0.86) 100%);"></div>
       <div style="position:absolute; inset:0; background:#3a1e18; opacity:var(--hero-dark,0.06); mix-blend-mode:multiply;"></div>
+      <div class="hero-scrim" style="position:absolute; inset:0; background:radial-gradient(ellipse 58% 54% at 50% 50%, rgba(26,17,11,0.55) 0%, rgba(26,17,11,0.26) 44%, transparent 72%); pointer-events:none;"></div>
       <span class="hero-orb" style="position:absolute; left:22%; top:38%; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(230,182,82,0.5), transparent 70%); filter:blur(8px); animation:drift 9s ease-in-out infinite;"></span>
       <span class="hero-orb" style="position:absolute; left:58%; top:30%; width:80px; height:80px; border-radius:50%; background:radial-gradient(circle, rgba(230,182,82,0.45), transparent 70%); filter:blur(6px); animation:drift 11s ease-in-out 1.5s infinite;"></span>
       <span class="hero-orb" style="position:absolute; left:44%; top:48%; width:60px; height:60px; border-radius:50%; background:radial-gradient(circle, rgba(244,222,160,0.5), transparent 70%); filter:blur(5px); animation:drift 8s ease-in-out 3s infinite;"></span>
 
-      <div class="hero-content" style="position:relative; z-index:3; padding:0 clamp(24px,5vw,72px) clamp(56px,9vh,110px); color:#fffdf9; max-width:1100px;">
+      <div class="hero-content" data-halign="center" style="position:relative; z-index:3; padding:0 clamp(24px,5vw,72px); color:#fffdf9; max-width:1100px;">
         <div class="hero-row" style="display:flex; align-items:center; gap:14px; margin-bottom:26px;">
           <span style="width:32px; height:1px; background:var(--accent-soft,#e6b652);"></span>
           <span style="font-size:12px; letter-spacing:0.42em; text-transform:uppercase; color:var(--accent-soft,#e6b652);">Solvia Medical · Aesthetic Distribution</span>
         </div>
         <h1 style="font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(52px,9vw,128px); line-height:1.02; margin:0; letter-spacing:-0.01em; text-shadow:0 2px 40px rgba(0,0,0,0.35);">The Path Light Takes</h1>
         <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(22px,3vw,38px); margin:18px 0 0; color:rgba(255,253,249,0.92); font-weight:500;">Where light becomes care.</p>
-        <p style="max-width:520px; margin:30px 0 0; font-size:clamp(15px,1.4vw,18px); line-height:1.8; color:rgba(255,253,249,0.82); font-weight:300;">From advanced cosmetics to aesthetic devices and dermal fillers — we carry Korea's most trusted aesthetic brands to clinics and partners across the world.</p>
+        <p style="max-width:520px; margin:30px auto 0; font-size:clamp(15px,1.4vw,18px); line-height:1.8; color:rgba(255,253,249,0.82); font-weight:300;">From advanced cosmetics to aesthetic devices and dermal fillers — we carry Korea's most trusted aesthetic brands to clinics and partners across the world.</p>
         <div class="hero-row" style="display:flex; flex-wrap:wrap; gap:14px; margin-top:38px;">
           <a href="#journey" style="display:inline-flex; align-items:center; gap:10px; background:var(--accent,#c08a2e); color:#1c1408; text-decoration:none; padding:15px 28px; border-radius:999px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:500;">Our Story <span style="font-size:15px;">→</span></a>
           <a href="#contact" style="display:inline-flex; align-items:center; gap:10px; color:#fffdf9; text-decoration:none; padding:15px 28px; border-radius:999px; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; font-weight:400; border:1px solid rgba(255,253,249,0.45);">Partner Inquiry</a>

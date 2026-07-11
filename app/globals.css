@@ -56,6 +56,8 @@ body { margin: 0; }
   .hero-cue { display:none; }
   /* cursor-driven bloom layers are desktop-only */
   .hero-sec [data-lens], .hero-sec [data-core], .hero-sec [data-light] { display:none; }
+  /* centered-hero legibility scrim is desktop-only (mobile hero is top-left) */
+  .hero-scrim { display:none; }
 }
 
 /* mobile nav dropdown */
