@@ -94,19 +94,19 @@ const components = [
   {
     name: "Main unit",
     desc: "Touchscreen-based MPOINT treatment console.",
-    img: `${IMG_BASE}/MPOINT_Main_Console_Transparent.webp`,
+    img: `${IMG_BASE}/MPOINT_Main_Console_Transparent.png`,
     alt: "MPOINT main console with five probe adaptors",
   },
   {
     name: "Probe adaptors ×5",
     desc: "Five-channel connection system for electrode placement.",
-    img: `${IMG_BASE}/MPOINT_Probe_Adaptor_Pair_Transparent.webp`,
+    img: `${IMG_BASE}/MPOINT_Probe_Adaptor_Pair_Transparent.png`,
     alt: "MPOINT reusable probe adaptors",
   },
   {
     name: "Single-use electrode",
     desc: "Front and back electrode components, discarded after each use.",
-    img: `${IMG_BASE}/MPOINT_Single_Use_Electrode_Front.webp`,
+    img: `${IMG_BASE}/MPOINT_Single_Use_Electrode_Front.png`,
     alt: "MPOINT single-use electrode, front",
   },
   {
@@ -461,7 +461,7 @@ export default function MPointProductDetail({
               }}
             >
               <img
-                src={`${IMG_BASE}/MPOINT_Device_Hero_Transparent.webp`}
+                src={`${IMG_BASE}/MPOINT_Device_Hero_Transparent.png`}
                 alt="MPOINT facial treatment device"
                 style={{
                   position: "absolute",
@@ -562,7 +562,7 @@ export default function MPointProductDetail({
               }}
             >
               <img
-                src={`${IMG_BASE}/MPOINT_Device_Angled_Transparent.webp`}
+                src={`${IMG_BASE}/MPOINT_Device_Angled_Transparent.png`}
                 alt="MPOINT device, three-quarter view"
                 style={{
                   position: "absolute",
@@ -752,7 +752,7 @@ export default function MPointProductDetail({
               }}
             >
               <img
-                src={`${IMG_BASE}/MPOINT_Main_Console_Transparent.webp`}
+                src={`${IMG_BASE}/MPOINT_Main_Console_Transparent.png`}
                 alt="MPOINT console with five-channel probe adaptors"
                 style={{
                   position: "absolute",
@@ -926,8 +926,8 @@ export default function MPointProductDetail({
             </div>
             <div style={{ display: "flex", gap: 18, justifyContent: "center" }}>
               {[
-                { img: `${IMG_BASE}/MPOINT_Single_Use_Electrode_Front.webp`, cap: "Front" },
-                { img: `${IMG_BASE}/MPOINT_Single_Use_Electrode_Back.webp`, cap: "Back" },
+                { img: `${IMG_BASE}/MPOINT_Single_Use_Electrode_Front.png`, cap: "Front" },
+                { img: `${IMG_BASE}/MPOINT_Single_Use_Electrode_Back.png`, cap: "Back" },
               ].map((e) => (
                 <div key={e.cap} style={{ textAlign: "center" }}>
                   <div

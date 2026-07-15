@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/assets/mpoint/MPOINT_Device_Hero_Transparent.webp",
+        url: "/assets/mpoint/MPOINT_Device_Hero_Transparent.png",
         alt: "MPOINT facial treatment device",
       },
     ],
