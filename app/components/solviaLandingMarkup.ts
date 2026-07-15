@@ -27,6 +27,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
     <a href="#contact" class="dc-dock-item dc-dock-contact">Contact</a>
     <div class="dc-dock-panel" id="dc-dock-panel" role="menu" aria-label="Brands">
       <a href="/ovalla" role="menuitem">Ovalla<span>Cosmetics</span></a>
+      <a href="/mpoint" role="menuitem">MPOINT<span>Device</span></a>
       <a href="/coreslim" role="menuitem">CoreSlim<span>Device</span></a>
       <a href="#products" role="menuitem" class="dc-dock-all">All brands →</a>
     </div>
@@ -102,7 +103,7 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
           <div style="position:relative; text-align:center; margin-bottom:clamp(30px,4.5vw,48px);">
             <div style="font-size:12px; letter-spacing:0.4em; text-transform:uppercase; color:var(--accent-soft,#e6b652);">Selected · Distribution Partners</div>
             <h2 style="font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:clamp(36px,6vw,72px); color:#fffdf9; line-height:1.02; margin:16px 0 0;">The Brands We Carry</h2>
-            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(18px,2.2vw,26px); color:rgba(244,236,221,0.62); margin:12px 0 0;">Eleven names, three disciplines, one distributor.</p>
+            <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(18px,2.2vw,26px); color:rgba(244,236,221,0.62); margin:12px 0 0;">Twelve names, three disciplines, one distributor.</p>
           </div>
 
           <!-- drifting two-row brand carousel -->
@@ -112,13 +113,14 @@ export const markup = String.raw`<div style="--accent:#c08a2e; --accent-soft:#e6
                 <span style="width:8px; height:8px; border-radius:50%; background:#e6b652; box-shadow:0 0 0 4px rgba(230,182,82,0.18);"></span>
                 <span style="font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:rgba(244,236,221,0.72);">Now Carrying</span>
               </div>
-              <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(244,236,221,0.55);">Drag either row to explore · 11 brands · 15+ export markets</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:rgba(244,236,221,0.55);">Drag either row to explore · 12 brands · 15+ export markets</span>
             </div>
 
             <!-- ROW 1 -->
             <div class="bc-mask" data-row="0" style="margin-bottom:18px;">
               <div class="bc-track" data-track>
                 <a class="bc-card" href="/ovalla"><img class="bc-img" src="/assets/forest-light.webp" alt="Ovalla"><div style="position:absolute; inset:0; background:linear-gradient(160deg,rgba(20,16,10,0.28),rgba(20,16,10,0.05) 40%,rgba(20,16,10,0.86));"></div><div class="bc-cell"><span style="align-self:flex-start; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:rgba(255,253,249,0.16); border:1px solid rgba(255,253,249,0.28);">Cosmetics</span><div><h3 style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:34px; letter-spacing:0.03em; margin:0;">ōvalla</h3><span style="font-size:10px; letter-spacing:0.18em; color:#e6b652;">KR · JP · US · SG</span></div></div></a>
+                <a class="bc-card" href="/mpoint" style="background:#0e1c2c;"><img class="bc-img" src="/assets/mpoint/MPOINT_Device_Hero_Transparent.webp" alt="MPOINT" style="object-fit:contain; padding:14px 14px 74px;"><div style="position:absolute; inset:0; background:linear-gradient(160deg,rgba(9,17,28,0.05),rgba(9,17,28,0) 42%,rgba(9,17,28,0.72));"></div><div class="bc-cell"><span style="align-self:flex-start; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:#4f96d6; color:#07131f;">Devices</span><div><h3 style="font-family:'Jost',sans-serif; font-weight:500; font-size:28px; letter-spacing:0.06em; margin:0;">MPOINT</h3><span style="font-size:10px; letter-spacing:0.18em; color:#86bdeb;">KR · Global</span></div></div></a>
                 <a class="bc-card" data-brand="vantage"><img class="bc-img" src="/assets/golden-meadow.webp" alt="Vantage"><div style="position:absolute; inset:0; background:linear-gradient(160deg,rgba(20,16,10,0.34),rgba(20,16,10,0.08) 42%,rgba(20,16,10,0.86));"></div><div class="bc-cell"><span style="align-self:flex-start; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:rgba(255,253,249,0.16); border:1px solid rgba(255,253,249,0.28);">Devices</span><div><h3 style="font-family:'Jost',sans-serif; font-weight:500; font-size:28px; letter-spacing:0.06em; margin:0;">VANTAGE</h3><span style="font-size:10px; letter-spacing:0.18em; color:#e6b652;">KR · TH · AE · US</span></div></div></a>
                 <a class="bc-card" data-brand="aether" style="background:#3a2b28;"><div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg,#3a2b28,#3a2b28 17px,#33251f 17px,#33251f 34px);"></div><div class="bc-cell"><span style="align-self:flex-start; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:rgba(255,253,249,0.16); border:1px solid rgba(255,253,249,0.28);">Cosmetics</span><div><h3 style="font-family:'Jost',sans-serif; font-weight:500; font-size:28px; letter-spacing:0.06em; margin:0;">AETHER</h3><span style="font-size:10px; letter-spacing:0.18em; color:#e6b652;">KR · JP · CN</span></div></div></a>
                 <a class="bc-card" data-brand="cicara" style="background:#3a2b28;"><div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg,#333f2e,#333f2e 17px,#2c3628 17px,#2c3628 34px);"></div><div class="bc-cell"><span style="align-self:flex-start; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; padding:6px 12px; border-radius:999px; background:rgba(255,253,249,0.16); border:1px solid rgba(255,253,249,0.28);">Functional</span><div><h3 style="font-family:'Jost',sans-serif; font-weight:500; font-size:28px; letter-spacing:0.06em; margin:0;">CICARA</h3><span style="font-size:10px; letter-spacing:0.18em; color:#e6b652;">KR · US · EU</span></div></div></a>
